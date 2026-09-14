@@ -274,8 +274,19 @@ int CheckForTimeAction(LevelHierarchyEntry *LevelArray[],
 
 
             if (IndividualStarICSupernovaInjectionMethod == 1){ // spherical bubble injection
+              // Select every grid overlapped by the same sphere the injector
+              // uses, including neighbors that do not contain the SN center.
+              // The physical radius is in pc; convert to code length and then
+              // a cell extent separately for each candidate grid. Passing the
+              // disabled stencil (-1) would give zero overlap padding in
+              // IsParticleFeedbackInGrid and miss those neighboring grids.
+              // Preserve the original selector for stencil-based injection.
+              int ncell = IndividualStarFeedbackStencilSize;
+              if (IndividualStarFeedbackRadius > 0){
+                ncell = (int) ceil(IndividualStarFeedbackRadius*pc_cm/LengthUnits / dx);
+              }
               if (Temp->GridData->isLocal() && IsParticleFeedbackInGrid(SNPosition,
-                                                                        IndividualStarFeedbackStencilSize,
+                                                                        ncell,
                                                                         Temp)){
 
                   if ( Temp->GridData->IndividualStarInjectSphericalFeedback(NULL,
