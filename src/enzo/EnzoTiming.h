@@ -157,9 +157,12 @@ namespace enzo_timing{
 
     // Destructor, erases each timer.
     ~enzo_timer(void){
+      // Delete the owned timers without erasing map entries during traversal.
+      // Erasing iter invalidates it, so the loop's ++iter would otherwise use
+      // an invalid iterator and can crash after the final simulation output.
+      // Clear the entries only after every pointed-to timer has been deleted.
       for( SectionMap::iterator iter=timers.begin(); iter!=timers.end(); ++iter){
         delete iter->second;
-        timers.erase(iter);
       }
       timers.clear();
     }
