@@ -100,7 +100,10 @@ int grid::GalaxySimulationInitializeGrid(FLOAT DiskRadius,
 
   int dim, i, j, k, m, disk, size, MetalNum, MetalIaNum, vel;
 
-  int ExtraField[9] = {0};
+  // Keep the existing source-tracer slots; append the two wind tracers.
+  // Field allocation and GalaxySimulationInitialize's labels must have
+  // identical conditional ordering so output/restart fields stay aligned.
+  int ExtraField[11] = {0};
 
   int DeNum, HINum, HIINum, HeINum, HeIINum, HeIIINum, HMNum, H2INum, H2IINum,
       DINum, DIINum, HDINum, B1Num, B2Num, B3Num, PhiNum;
@@ -225,6 +228,13 @@ int grid::GalaxySimulationInitializeGrid(FLOAT DiskRadius,
 
     if (IndividualStarRProcessModel){
       FieldType[ExtraField[8] = NumberOfBaryonFields++] = MetalRProcessDensity;
+    }
+
+    // IndividualStar formation and feedback require both wind fields when
+    // tracking is enabled, even before the first star has formed.
+    if (IndividualStarTrackWindDensity){
+      FieldType[ExtraField[9] = NumberOfBaryonFields++] = MetalWindDensity;
+      FieldType[ExtraField[10] = NumberOfBaryonFields++] = MetalWindDensity2;
     }
   } // done setting multimetals
 
@@ -384,6 +394,13 @@ int grid::GalaxySimulationInitializeGrid(FLOAT DiskRadius,
    if (IndividualStarRProcessModel){
      for (i = 0; i < size; i++){
        BaryonField[ExtraField[8]][i] = tiny_number*UniformDensity;
+     }
+   }
+
+   if (IndividualStarTrackWindDensity){
+     for (i = 0; i < size; i++){
+       BaryonField[ExtraField[9]][i] = tiny_number*UniformDensity;
+       BaryonField[ExtraField[10]][i] = tiny_number*UniformDensity;
      }
    }
 
@@ -716,37 +733,37 @@ int grid::GalaxySimulationInitializeGrid(FLOAT DiskRadius,
              BaryonField[field_num][n] = density * chemical_species_fraction[ii];
            }
          }
+         // This is inside the spatial cell loop: n identifies this cell,
+         // while i is the enclosing x index. A whole-grid loop reusing i
+         // would terminate that traversal early and overwrite other cells'
+         // tracer values with this cell's density. Only the background pass
+         // above should initialize entire arrays; use the local density here.
          if (IndividualStarTrackAGBMetalDensity){
-           for (i = 0; i < size; i ++)
-             BaryonField[ExtraField[0]][i] = tiny_number*density;
+           BaryonField[ExtraField[0]][n] = tiny_number*density;
          }
 
          if (IndividualStarPopIIIFormation){
-           for (i = 0; i < size; i ++){
-             BaryonField[ExtraField[1]][i] = tiny_number*density;
-             BaryonField[ExtraField[2]][i] = tiny_number*density;
-           }
+           BaryonField[ExtraField[1]][n] = tiny_number*density;
+           BaryonField[ExtraField[2]][n] = tiny_number*density;
          }
 
          if (IndividualStarTrackSNMetalDensity){
-           for (i = 0; i < size; i++){
-             BaryonField[ExtraField[3]][i] = tiny_number*density;
-             BaryonField[ExtraField[7]][i] = tiny_number*density;
-           }
+           BaryonField[ExtraField[3]][n] = tiny_number*density;
+           BaryonField[ExtraField[7]][n] = tiny_number*density;
            if (IndividualStarSNIaModel == 2) {
-             for (i = 0; i < size; i++){
-               BaryonField[ExtraField[4]][i] = tiny_number*density;
-               BaryonField[ExtraField[5]][i] = tiny_number*density;
-               BaryonField[ExtraField[6]][i] = tiny_number*density;
-             }
+             BaryonField[ExtraField[4]][n] = tiny_number*density;
+             BaryonField[ExtraField[5]][n] = tiny_number*density;
+             BaryonField[ExtraField[6]][n] = tiny_number*density;
            }
-
          }
 
          if (IndividualStarRProcessModel){
-           for (i = 0; i < size; i++){
-             BaryonField[ExtraField[8]][i] = tiny_number*density;
-           }
+           BaryonField[ExtraField[8]][n] = tiny_number*density;
+         }
+
+         if (IndividualStarTrackWindDensity){
+           BaryonField[ExtraField[9]][n] = tiny_number*density;
+           BaryonField[ExtraField[10]][n] = tiny_number*density;
          }
 
        } // end chemical tracer value set

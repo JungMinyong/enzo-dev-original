@@ -97,6 +97,8 @@ int GalaxySimulationInitialize(FILE *fptr, FILE *Outfptr,
   char *SNIIMetalName   = "SNII_Metal_Density";
   char *SNIaMetalName   = "SNIa_Metal_Density";
   char *RProcMetalName  = "RProcess_Metal_Density";
+  char *WindMetalName  = "Intermediate_Wind_Metal_Density";
+  char *WindMetalName2 = "Massive_Wind_Metal_Density";
 
   char *ExtraMetalName0    = "SNIa_sCh_Metal_Density";
   char *ExtraMetalName1    = "SNIa_SDS_Metal_Density";
@@ -847,29 +849,37 @@ int GalaxySimulationInitialize(FILE *fptr, FILE *Outfptr,
      }
    } // yields loop
 
+   // count is the next field-label slot; i belongs to unrelated loops.
+   // Match the conditional FieldType order in the grid initializer,
+   // including the appended wind fields, for correct output and restart I/O.
    if (IndividualStarTrackAGBMetalDensity){
-     DataLabel[i++] = AGBMetalName;
+     DataLabel[count++] = AGBMetalName;
    }
 
    if (IndividualStarPopIIIFormation){
-     DataLabel[i++] = PopIIIMetalName;
-     DataLabel[i++] = PopIIIPISNeMetalName;
+     DataLabel[count++] = PopIIIMetalName;
+     DataLabel[count++] = PopIIIPISNeMetalName;
    }
 
    if (IndividualStarTrackSNMetalDensity){
-     DataLabel[i++] = SNIaMetalName;
+     DataLabel[count++] = SNIaMetalName;
 
      if (IndividualStarSNIaModel == 2){
-      DataLabel[i++] = ExtraMetalName0;
-      DataLabel[i++] = ExtraMetalName1;
-      DataLabel[i++] = ExtraMetalName2;
+      DataLabel[count++] = ExtraMetalName0;
+      DataLabel[count++] = ExtraMetalName1;
+      DataLabel[count++] = ExtraMetalName2;
      }
 
-     DataLabel[i++] = SNIIMetalName;
+     DataLabel[count++] = SNIIMetalName;
    }
 
    if (IndividualStarRProcessModel){
-     DataLabel[i++] = RProcMetalName;
+     DataLabel[count++] = RProcMetalName;
+   }
+
+   if (IndividualStarTrackWindDensity){
+     DataLabel[count++] = WindMetalName;
+     DataLabel[count++] = WindMetalName2;
    }
 
  }
