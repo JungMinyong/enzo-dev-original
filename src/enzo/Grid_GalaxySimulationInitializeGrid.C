@@ -596,7 +596,21 @@ int grid::GalaxySimulationInitializeGrid(FLOAT DiskRadius,
 	     Velocity[2] = DiskVelocityMag*(AngularMomentum[0]*xhat[1] -
 					    AngularMomentum[1]*xhat[0]);
 
-           BaryonField[vel+dim][n] = Velocity[dim] + UniformVelocity[dim];
+           // Cell-centered hydro visits only dim == 0, but needs all velocity
+           // components. Writing only vel+dim discarded the y component of
+           // disk rotation, leaving a shear flow instead of centrifugal support.
+           if (HydroMethod != Zeus_Hydro) {
+             for (int component = 0; component < GridRank; component++)
+               BaryonField[vel+component][n] =
+                 Velocity[component] + UniformVelocity[component];
+           } else if (dim > 0) {
+             // ZEUS visits faces with dim == 1..GridRank; velocity components
+             // are indexed 0..GridRank-1. The dim == 0 pass is cell-centered.
+             // Do not write vel+GridRank (the field after the velocities).
+             const int component = dim - 1;
+             BaryonField[vel+component][n] =
+               Velocity[component] + UniformVelocity[component];
+           }
 
 	 } // end: loop over dims
 
