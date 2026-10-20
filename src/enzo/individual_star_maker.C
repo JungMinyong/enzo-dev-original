@@ -480,6 +480,35 @@ int grid::individual_star_maker(float *dm, float *temp, int *nmax, float *mu, in
 
               } // endif mass threshold check
 
+              // DEFECT 1 ITEM 1: the gas-debit fraction is formed HERE, in ONE unit system (Msun / Msun),
+              // before sum_mass is converted to code units further down. Both masses cover the same
+              // donor stencil: bmass is the sum over the cells the debit loop below removes gas from.
+              const double sf_sum_mass_msun = sum_mass;   // Msun: sum of the masses sampled for this event
+              const double sf_bmass_msun    = bmass;      // Msun: gas mass of the donor stencil
+              double sf_removal_fraction    = 0.0;        // dimensionless; 0 when nothing formed
+              double sf_gas_removed_code    = 0.0;        // measured in the debit loop (code density units)
+              double sf_min_new_density     = 0.0;
+              int    sf_debit_cells         = 0;
+              if (sf_sum_mass_msun > 0.0) {
+                if (!isfinite(sf_sum_mass_msun) || !isfinite(sf_bmass_msun) || !(sf_bmass_msun > 0.0)) {
+                  fprintf(stderr, "[SF_BUDGET_INVALID_FATAL] P%d cell=%.17e %.17e %.17e sum_mass_msun=%.17e bmass_msun=%.17e\n",
+                          MyProcessorNumber, (double) CellLeftEdge[0][i], (double) CellLeftEdge[1][j], (double) CellLeftEdge[2][k], sf_sum_mass_msun, sf_bmass_msun);
+                  ENZO_VFAIL("[SF_BUDGET_INVALID_FATAL] sum_mass_msun=%e bmass_msun=%e", sf_sum_mass_msun, sf_bmass_msun);
+                }
+                sf_removal_fraction = sf_sum_mass_msun / sf_bmass_msun;
+                fprintf(stderr, "[SF_DEBIT_PRE] P%d cell=%.17e %.17e %.17e dx=%.17e ncells=%d bmass_msun=%.17e sum_mass_msun=%.17e f=%.17e nstars=%d\n",
+                        MyProcessorNumber, (double) CellLeftEdge[0][i], (double) CellLeftEdge[1][j], (double) CellLeftEdge[2][k], (double) dx,
+                        number_of_sf_cells, sf_bmass_msun, sf_sum_mass_msun, sf_removal_fraction, ii - index_presf);
+                if (!(sf_removal_fraction < 1.0)) {
+                  // No clamp: a draw the donor stencil cannot pay for is refused before any particle
+                  // property is assigned and before any gas is removed (sampler policy = Defect 1 ITEM 2).
+                  fprintf(stderr, "[SF_OVERDRAW_FATAL] P%d cell=%.17e %.17e %.17e bmass_msun=%.17e sum_mass_msun=%.17e f=%.17e\n",
+                          MyProcessorNumber, (double) CellLeftEdge[0][i], (double) CellLeftEdge[1][j], (double) CellLeftEdge[2][k],
+                          sf_bmass_msun, sf_sum_mass_msun, sf_removal_fraction);
+                  ENZO_VFAIL("[SF_OVERDRAW_FATAL] f=%e sum_mass_msun=%e bmass_msun=%e", sf_removal_fraction, sf_sum_mass_msun, sf_bmass_msun);
+                }
+              }
+
               // prepare for assigning star properties by computing the local
               // gas velocity properties (this is for velocity assignment)
               // 2 = Zeus .. otherwise PPM
@@ -855,7 +884,11 @@ int grid::individual_star_maker(float *dm, float *temp, int *nmax, float *mu, in
                       // where M_tot is mass of cells that meet above SF conditions. Simplifies to below eq:
                       float old_density = BaryonField[DensNum][loc_index];
 
-                      BaryonField[DensNum][loc_index] *= (1.0 - sum_mass / bmass);
+                      BaryonField[DensNum][loc_index] *= (1.0 - sf_removal_fraction);
+                      sf_gas_removed_code += old_density - BaryonField[DensNum][loc_index];
+                      if (sf_debit_cells == 0 || BaryonField[DensNum][loc_index] < sf_min_new_density)
+                        sf_min_new_density = BaryonField[DensNum][loc_index];
+                      sf_debit_cells++;
 
                       // adjust total energy if we are using PPM
                       if (HydroMethod != 2 && FALSE){
@@ -876,6 +909,15 @@ int grid::individual_star_maker(float *dm, float *temp, int *nmax, float *mu, in
                     }
                   }
                 }
+              }
+
+              if (sf_sum_mass_msun > 0.0) {   // measured: gas actually removed vs stellar mass actually stored
+                double sf_stars_msun = 0.0;
+                for (int s_i = index_presf; s_i < ii; s_i++) sf_stars_msun += ParticleMass[s_i] * MassUnits / SolarMass;
+                fprintf(stderr, "[SF_DEBIT] P%d cell=%.17e %.17e %.17e dx=%.17e debit_cells=%d bmass_msun=%.17e sum_mass_msun=%.17e f=%.17e gas_removed_msun=%.17e stars_msun=%.17e nstars=%d min_new_density=%.17e\n",
+                        MyProcessorNumber, (double) CellLeftEdge[0][i], (double) CellLeftEdge[1][j], (double) CellLeftEdge[2][k], (double) dx, sf_debit_cells,
+                        sf_bmass_msun, sf_sum_mass_msun, sf_removal_fraction,
+                        sf_gas_removed_code * (dx*dx*dx) * MassUnits / SolarMass, sf_stars_msun, ii - index_presf, sf_min_new_density);
               }
 
             } // if jeans mass unstable
