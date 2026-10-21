@@ -298,6 +298,7 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   /* for cooling refinement regions. */
 
   UseCoolingRefineRegion = FALSE;
+  CoolingRefineRegionMultiRefineTrack = -1;
   EvolveCoolingRefineRegion = FALSE;
   CoolingRefineRegionFile = NULL;
   CoolingRefineRegionTimeType = -1; /* 0=time bins 1=redshift bins*/

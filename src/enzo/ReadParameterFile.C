@@ -450,6 +450,8 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     /* cooling refinement region inputs */
 
     ret += sscanf(line, "UseCoolingRefineRegion        = %"ISYM, &UseCoolingRefineRegion);
+    ret += sscanf(line, "CoolingRefineRegionMultiRefineTrack = %"ISYM,
+                  &CoolingRefineRegionMultiRefineTrack);
     ret += sscanf(line, "EvolveCoolingRefineRegion     = %"ISYM, &EvolveCoolingRefineRegion);
 
     ret += sscanf(line, "CoolingRefineRegionLeftEdge  = %"PSYM" %"PSYM" %"PSYM,

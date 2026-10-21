@@ -47,22 +47,48 @@ int grid::FlagCellsToBeRefinedByCoolingTime()
     return -1;
   }
 
-  // are we using a cooling time refinement region?  If not, keep on going!
-  if(UseCoolingRefineRegion){
+  /* A selected evolving track extends the original cooling region.  The
+     current bounds are already updated by SetEvolveRefineRegion; no track-file
+     I/O or interpolation is needed here. */
+  if (CoolingRefineRegionMultiRefineTrack < -1)
+    ENZO_FAIL("CoolingRefineRegionMultiRefineTrack must be -1 or a zero-based track index.");
+  if (CoolingRefineRegionMultiRefineTrack >= 0) {
+    if (!UseCoolingRefineRegion ||
+        (MultiRefineRegionTimeType != 0 && MultiRefineRegionTimeType != 1) ||
+        CoolingRefineRegionMultiRefineTrack >= NumberOfMultiRefineTracks)
+      ENZO_FAIL("CoolingRefineRegionMultiRefineTrack requires UseCoolingRefineRegion=1 and an existing evolving MultiRefine track.");
+  }
 
-    /* If we ARE using a cooling time refinement region, check to see if this grid overlaps
-       with our CoolingRefineRegion by looping over dimensions.  For each dimension, check
-       to see if the grid is at least partially within our CoolingRefineRegion.  If it is NOT
-       inside that region, return SUCCESS. */
-    for (dim = 0; dim < GridRank; dim++){
-
-      if(   !((GridRightEdge[dim] > CoolingRefineRegionLeftEdge[dim]) &&
-	      (GridLeftEdge[dim] < CoolingRefineRegionRightEdge[dim])) )
-	return SUCCESS;
+  if (UseCoolingRefineRegion) {
+    bool overlaps = true;
+    for (dim = 0; dim < GridRank; dim++) {
+      if (!(GridRightEdge[dim] > CoolingRefineRegionLeftEdge[dim] &&
+            GridLeftEdge[dim] < CoolingRefineRegionRightEdge[dim])) {
+        overlaps = false;
+        break;
+      }
     }
 
-  }  // if(UseCoolingRefineRegion)
+    /* Only test the selected track if the host region did not already match.
+       Do not include other tracks (e.g. a large low-resolution outer box). */
+    if (!overlaps && CoolingRefineRegionMultiRefineTrack >= 0) {
+      int region = NumberOfStaticMultiRefineRegions +
+                   CoolingRefineRegionMultiRefineTrack;
+      overlaps = true;
+      for (dim = 0; dim < GridRank; dim++) {
+        if (!(GridRightEdge[dim] > MultiRefineRegionLeftEdge[region][dim] &&
+              GridLeftEdge[dim] < MultiRefineRegionRightEdge[region][dim])) {
+          overlaps = false;
+          break;
+        }
+      }
+    }
 
+    /* Keep the existing grid-overlap semantics.  Compute cooling times only
+       once per qualifying grid, including grids overlapping both boxes. */
+    if (!overlaps)
+      return SUCCESS;
+  }
 
   /* If using comoving coordinates, compute the expansion factor a.  Otherwise,
      set it to one. */

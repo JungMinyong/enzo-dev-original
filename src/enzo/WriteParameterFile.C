@@ -405,6 +405,8 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
     fprintf(fptr, "MustRefineRegionFile       = %s\n", MustRefineRegionFile);
 
   fprintf(fptr, "UseCoolingRefineRegion    = %"ISYM"\n", UseCoolingRefineRegion);
+  fprintf(fptr, "CoolingRefineRegionMultiRefineTrack = %"ISYM"\n",
+          CoolingRefineRegionMultiRefineTrack);
   fprintf(fptr, "EvolveCoolingRefineRegion = %"ISYM"\n", EvolveCoolingRefineRegion);
   fprintf(fptr, "CoolingRefineRegionLeftEdge   = ");
   WriteListOfFloats(fptr, MetaData.TopGridRank, CoolingRefineRegionLeftEdge);

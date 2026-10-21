@@ -616,6 +616,9 @@ EXTERN int EvolveMustRefineRegionMinLevel[MAX_REFINE_REGIONS]; // minimum allowa
 
 // user parameters for cooling refinement region
 EXTERN int UseCoolingRefineRegion;
+// Optional zero-based evolving MultiRefine track added to the cooling region.
+// -1 preserves the original cooling-region selection.
+EXTERN int CoolingRefineRegionMultiRefineTrack;
 EXTERN int EvolveCoolingRefineRegion;
 EXTERN FLOAT CoolingRefineRegionLeftEdge[MAX_DIMENSION];  // left edge
 EXTERN FLOAT CoolingRefineRegionRightEdge[MAX_DIMENSION];  // right edge
