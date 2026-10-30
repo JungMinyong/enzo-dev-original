@@ -27,6 +27,7 @@
 #include "Grid.h"
 #include "RadiativeTransferParameters.h"
 #include "phys_constants.h"
+#include "GrackleCompatibility.h"
 
 #define MAX_CHANGE 0.5
 
@@ -103,6 +104,14 @@ float grid::ComputePhotonTimestepTau(float DensityUnits, float LengthUnits,
     dlogtem = (logtem9 - logtem0) / float(nbins-1);
   }
 
+#ifdef USE_GRACKLE
+  std::vector<double> grackle_k1, grackle_k2;
+  if (grackle_data->use_grackle) {
+    GracklePhotonRateTable("k1", grackle_k1);
+    GracklePhotonRateTable("k2", grackle_k2);
+  }
+#endif
+
   // Absorb all unit conversions into this factor, so we only have to
   // multiple by density.
   sigma_dx = float(sigmaHI * double(LengthUnits) * double(DensityUnits)/mh * 
@@ -128,10 +137,10 @@ float grid::ComputePhotonTimestepTau(float DensityUnits, float LengthUnits,
 
 #ifdef USE_GRACKLE
 	  if (grackle_data->use_grackle == TRUE) {
-	    kr1 = grackle_rates.k1[tidx] + (logtem - t1) * 
-	      (grackle_rates.k1[tidx+1] - grackle_rates.k1[tidx]) / tdef;
-	    kr2 = grackle_rates.k2[tidx] + (logtem - t1) * 
-	      (grackle_rates.k2[tidx+1] - grackle_rates.k2[tidx]) / tdef;
+	    kr1 = grackle_k1[tidx-1] + (logtem - t1) *
+	      (grackle_k1[tidx] - grackle_k1[tidx-1]) / tdef;
+	    kr2 = grackle_k2[tidx-1] + (logtem - t1) *
+	      (grackle_k2[tidx] - grackle_k2[tidx-1]) / tdef;
 	  } else
 #endif
 	  {

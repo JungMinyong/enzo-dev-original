@@ -567,6 +567,8 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   CloudyCoolingData.CloudyElectronFractionFactor = 9.153959e-3; // calculated using Cloudy 07.02 abundances
 
   use_grackle = FALSE;
+  GrackleDustAbundanceModel = -1; // distinguish omitted legacy migration choice
+  GrackleLWBackgroundModel = 0;
 
   OutputCoolingTime = FALSE;
   OutputTemperature = FALSE;

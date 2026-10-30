@@ -415,3 +415,14 @@ clean:
 
 include $(ENZO_DIR)/Make.config.targets
 # DO NOT DELETE
+
+# Rebuild every object when compiler flags or the selected library change.
+.PHONY: grackle-build-force
+.grackle-build-config: grackle-build-force
+	@printf '%s\n' '$(CONFIG_GRACKLE_BACKEND)' '$(CONFIG_GRACKLE_LEGACY_LW)' '$(CXX) $(CXXFLAGS)' '$(DEFINES) $(INCLUDES)' '$(LIBS)' > $@.tmp
+	@cmp -s $@.tmp $@ || mv $@.tmp $@
+	@rm -f $@.tmp
+$(OBJS_LIB) enzo.o: .grackle-build-config
+GrackleReadParameters.o: GrackleCompatibility.h
+
+Grid_ComputePhotonTimestepHII.o Grid_ComputePhotonTimestepTau.o: GrackleCompatibility.h

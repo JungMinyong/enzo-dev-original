@@ -56,3 +56,6 @@ src/P-GroupFinder/P-GroupFinder
 doc/manual/build
 
 run/results.js
+
+# Generated backend/compiler fingerprint
+src/enzo/.grackle-build-config*

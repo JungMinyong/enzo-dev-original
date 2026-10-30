@@ -379,6 +379,8 @@ EXTERN int RadiativeCooling;
 EXTERN CoolDataType CoolData;
 EXTERN int RadiativeCoolingModel;
 EXTERN int use_grackle;
+EXTERN int GrackleDustAbundanceModel;
+EXTERN int GrackleLWBackgroundModel;
 
 /* Cloudy cooling parameters and data. */
 

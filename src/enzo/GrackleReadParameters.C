@@ -23,6 +23,7 @@
 #include "typedefs.h"
 #include "global_data.h"
 #include "CosmologyParameters.h"
+#include "GrackleCompatibility.h"
 
 
 int GetUnits(float *DensityUnits, float *LengthUnits,
@@ -102,6 +103,7 @@ int GrackleReadParameters(FILE *fptr, FLOAT InitTime)
   }
 
   char line[MAX_LINE_LENGTH];
+  int explicit_h2_dust = -1;
   char *dummy = new char[MAX_LINE_LENGTH];
   dummy[0] = 0;
 
@@ -132,16 +134,16 @@ int GrackleReadParameters(FILE *fptr, FLOAT InitTime)
     ret += sscanf(line, "UVbackground = %d", &grackle_data->UVbackground);
     ret += sscanf(line, "Compton_xray_heating = %d",
                     &grackle_data->Compton_xray_heating);
-    ret += sscanf(line, "LWbackground_model = %d",
-                    &grackle_data->LWbackground_model);
+    ret += sscanf(line, "LWbackground_model = %"ISYM,
+                    &GrackleLWBackgroundModel);
     ret += sscanf(line, "LWbackground_intensity = %lf",
                   &grackle_data->LWbackground_intensity);
     ret += sscanf(line, "LWbackground_sawtooth_suppression = %d",
                   &grackle_data->LWbackground_sawtooth_suppression);
-    ret += sscanf(line, "LWbackground_model = %d",
-                  &grackle_data->LWbackground_model);
+    sscanf(line, "H2FormationOnDust = %"ISYM, &explicit_h2_dust);
+    ret += sscanf(line, "GrackleDustAbundanceModel = %"ISYM, &GrackleDustAbundanceModel);
 
-    ret += sscanf(line, "local_dust_to_gas_ratio = %f",
+    ret += sscanf(line, "local_dust_to_gas_ratio = %lf",
                   &grackle_data->local_dust_to_gas_ratio);
 
     ret += sscanf(line, "dust_chemistry = %d",
@@ -181,7 +183,9 @@ int GrackleReadParameters(FILE *fptr, FLOAT InitTime)
   grackle_data->Gamma                          = (double) Gamma;
   grackle_data->primordial_chemistry           = (Eint32) MultiSpecies;
   grackle_data->metal_cooling                  = (Eint32) MetalCooling;
-  grackle_data->h2_on_dust                     = (Eint32) H2FormationOnDust;
+  if (explicit_h2_dust == 0 && grackle_data->dust_chemistry > 0 && MultiSpecies > 1)
+    ENZO_FAIL("Explicit H2FormationOnDust=0 conflicts with dust chemistry, which enables H2 formation. Remove the obsolete switch to accept dust chemistry behavior.");
+  ConfigureGrackleCompatibility();
   grackle_data->cmb_temperature_floor          = (Eint32) CloudyCoolingData.CMBTemperatureFloor;
   grackle_data->three_body_rate                = (Eint32) ThreeBodyRate;
   grackle_data->cie_cooling                    = (Eint32) CIECooling;
