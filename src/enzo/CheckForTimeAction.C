@@ -29,6 +29,7 @@
 #include "LevelHierarchy.h"
 #include "CosmologyParameters.h"
 #include "phys_constants.h"
+#include "ArtificialSupernovaEvents.h"
 
 /* function prototypes */
 int GetUnits(float *DensityUnits, float *LengthUnits,
@@ -144,6 +145,8 @@ int CheckForTimeAction(LevelHierarchyEntry *LevelArray[],
 
       } else if (TimeActionType[i] == 3){ // individual star SN
 
+        // Equal-time file events are all injected before advancing the fluid.
+        do {
         float DensityUnits, LengthUnits,TemperatureUnits, TimeUnits,VelocityUnits;
         double MassUnits;
         if (GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
@@ -152,6 +155,11 @@ int CheckForTimeAction(LevelHierarchyEntry *LevelArray[],
         }
         MassUnits = DensityUnits * LengthUnits * LengthUnits * LengthUnits;
 
+        float SNPosition[3];
+        if (IndividualStarICSupernovaEventFile) {
+          ArtificialSupernovaPosition(SNPosition, MetaData.Time);
+        } else {
+        // Legacy rate scheduling and random positions.
         // in Myr
         float sntime = IndividualStarICSupernovaTime*Myr_s/TimeUnits;
 
@@ -213,7 +221,6 @@ int CheckForTimeAction(LevelHierarchyEntry *LevelArray[],
 
         // compute the SN location
         // for simplicity, this will be randomly chosen in a uniform disk
-        float SNPosition[3];
         for(int i = 0; i < 3; i++)
           SNPosition[i] = IndividualStarICSupernovaPos[i];
 
@@ -255,6 +262,7 @@ int CheckForTimeAction(LevelHierarchyEntry *LevelArray[],
 
 
         CommunicationBroadcastValues(SNPosition, 3, ROOT_PROCESSOR);
+        } // legacy random driving
 
         if (MyProcessorNumber == ROOT_PROCESSOR)
           printf("SNPosition = %f     %f     %f\n",SNPosition[0],SNPosition[1],SNPosition[2]);
@@ -344,6 +352,11 @@ int CheckForTimeAction(LevelHierarchyEntry *LevelArray[],
 
 
         }
+
+        if (IndividualStarICSupernovaEventFile)
+          AdvanceArtificialSupernovaEvent(i);
+        } while (IndividualStarICSupernovaEventFile &&
+                 TimeActionTime[i] > 0 && TimeActionTime[i] <= MetaData.Time);
 
       } else {
         /* Done, turn it off (-1 in redshift indicates off). */

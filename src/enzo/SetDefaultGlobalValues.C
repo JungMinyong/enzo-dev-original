@@ -804,6 +804,9 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   IndividualStarICSupernovaZ           =   -1.0;     // vertical height limit for supernova - set to Galaxy scale height
   IndividualStarICSupernovaMethod      =     1;     // 1: uniform disk with R and Z - 2: uniform sphere using R only
   IndividualStarICSupernovaFromFile    =     0;     // if ON, loads SNR as a function of time from a file.
+  IndividualStarICSupernovaEventFile = NULL;
+  IndividualStarICSupernovaNextEvent = 0;
+  IndividualStarICSupernovaEventFingerprint[0] = '\0';
   IndividualStarICSupernovaInjectionMethod = 1;   // 1 = thermal only, spherical ball - 2: thermal and kinetic mix - Simpson et. al. 2015
   for (i = 0; i < 3; i ++)
       IndividualStarICSupernovaPos[i] = 0.5;

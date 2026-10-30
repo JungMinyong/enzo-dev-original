@@ -441,7 +441,8 @@ int EvolveHierarchy(HierarchyEntry &TopGrid, TopGridData &MetaData,
             dt = min(1.0001*(CosmologyOutputRedshiftTime[i]-MetaData.Time), dt);
       for (i = 0; i < MAX_TIME_ACTIONS; i++)
         if (TimeActionTime[i] > 0 && TimeActionType[i] > 0)
-          dt = min(1.0001*(TimeActionTime[i] - MetaData.Time), dt);
+          dt = min(((IndividualStarICSupernovaEventFile && TimeActionType[i] == 3)
+                    ? 1.0 : 1.0001)*(TimeActionTime[i] - MetaData.Time), dt);
       if (MetaData.dtDataDump > 0.0) {
         while (MetaData.TimeLastDataDump+MetaData.dtDataDump < MetaData.Time)
           MetaData.TimeLastDataDump += MetaData.dtDataDump;

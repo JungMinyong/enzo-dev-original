@@ -426,3 +426,7 @@ $(OBJS_LIB) enzo.o: .grackle-build-config
 GrackleReadParameters.o: GrackleCompatibility.h
 
 Grid_ComputePhotonTimestepHII.o Grid_ComputePhotonTimestepTau.o: GrackleCompatibility.h
+
+ArtificialSupernovaEvents.o: ArtificialSupernovaTable.h ArtificialSupernovaEvents.h
+ReadParameterFile.o CheckForTimeAction.o: ArtificialSupernovaEvents.h
+$(OBJS_LIB) enzo.o: StarParticleData.h

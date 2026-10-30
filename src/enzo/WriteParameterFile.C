@@ -1144,6 +1144,12 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "IndividualStarICSupernovaZ    = %"ESYM"\n", IndividualStarICSupernovaZ);
   fprintf(fptr, "IndividualStarICSupernovaMethod = %"ISYM"\n", IndividualStarICSupernovaMethod);
   fprintf(fptr, "IndividualStarICSupernovaFromFile = %"ISYM"\n", IndividualStarICSupernovaFromFile);
+  if (IndividualStarICSupernovaEventFile) {
+    fprintf(fptr, "IndividualStarICSupernovaEventFile = %s\n", IndividualStarICSupernovaEventFile);
+    fprintf(fptr, "IndividualStarICSupernovaNextEvent = %"ISYM"\n", IndividualStarICSupernovaNextEvent);
+    fprintf(fptr, "IndividualStarICSupernovaEventFingerprint = %s\n",
+            IndividualStarICSupernovaEventFingerprint);
+  }
   fprintf(fptr, "IndividualStarICSupernovaInjectionMethod = %"ISYM"\n", IndividualStarICSupernovaInjectionMethod);
   fprintf(fptr, "IndividualStarICSupernovaPos = ");
   WriteListOfFloats(fptr, 3, IndividualStarICSupernovaPos);

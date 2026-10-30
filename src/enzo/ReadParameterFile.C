@@ -36,6 +36,7 @@
 #include "CosmologyParameters.h"
 #include "phys_constants.h"
 #include "ActiveParticle.h"
+#include "ArtificialSupernovaEvents.h"
 
 /* This variable is declared here and only used in Grid_ReadGrid. */
 
@@ -1171,6 +1172,12 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
                         &IndividualStarICSupernovaInjectionMethod);
     ret += sscanf(line, "IndividualStarICSupernovaFromFile = %"ISYM,
                         &IndividualStarICSupernovaFromFile);
+    if (sscanf(line, "IndividualStarICSupernovaEventFile = %s", dummy) == 1)
+      IndividualStarICSupernovaEventFile = dummy;
+    ret += sscanf(line, "IndividualStarICSupernovaNextEvent = %"ISYM,
+                  &IndividualStarICSupernovaNextEvent);
+    ret += sscanf(line, "IndividualStarICSupernovaEventFingerprint = %16s",
+                  IndividualStarICSupernovaEventFingerprint);
     ret += sscanf(line, "IndividualStarICSupernovaPos = %"FSYM" %"FSYM" %"FSYM,
                   IndividualStarICSupernovaPos+0, IndividualStarICSupernovaPos+1, IndividualStarICSupernovaPos+2);
 
@@ -1720,7 +1727,8 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     IndividualStarSecondaryOverDensityThreshold = StarMakerOverDensityThreshold;
   }
 
-  if (IndividualStarICSupernovaRate > 0 && GalaxySimulationInitialStellarDist){
+  if ((IndividualStarICSupernovaRate > 0 || IndividualStarICSupernovaEventFile) &&
+      GalaxySimulationInitialStellarDist){
     ENZO_FAIL("Are you sure you want to have initial random supernova driving and a stellar population\n");
   }
 
@@ -2425,6 +2433,8 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
 
 
 
-  return SUCCESS;
+  if (IndividualStarICSupernovaEventFile && MetaData.TopGridRank != 3)
+    ENZO_FAIL("Artificial SN event files require a three-dimensional grid.");
+  return InitializeArtificialSupernovaEvents(MetaData.Time);
 
 }
