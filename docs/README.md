@@ -9,6 +9,7 @@ its upstream documentation.
 - [SNIa model 2 timing correction](snia-timing.md)
 - [Stellar-property and yield interpolation boundaries](interpolation-boundaries.md)
 - [SNIa rate-table interpolation correction](snia-rate-interpolation.md)
+- [SNIa cumulative-probability initialization](snia-dtd-integration.md)
 
 Add future physics audits, correction decisions, and validation summaries here.
 Keep runnable regression tests in `tests/` and simulation outputs outside the

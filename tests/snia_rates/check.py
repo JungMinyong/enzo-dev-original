@@ -56,6 +56,29 @@ def expected(years, model):
     return 10 ** ((1 - weight) * left[model + 1] + weight * right[model + 1])
 
 
+def integrated_total(upper_years):
+    """Exact integral of the reference's piecewise log-linear total rate."""
+    total = 0.
+    for left, right in zip(knots, knots[1:]):
+        lower = max(.001, left[0])  # 1 Myr in Gyr
+        upper = min(upper_years / 1.e9, right[0])
+        if upper <= lower:
+            continue
+        slope = (right[1] - left[1]) / (right[0] - left[0])
+        exponent = math.log(10.) * slope
+        rate_at_lower = 10 ** (left[1] + slope * (lower - left[0]))
+        width = upper - lower
+        total += rate_at_lower * (
+            math.expm1(exponent * width) / exponent if exponent else width)
+    return total * 1.e9
+
+
+reference_integral = integrated_total(14.e9)
+cdf_reference = [
+    .1508 * integrated_total(10 ** (6 + (math.log10(14.e9) - 6) * i / 1999))
+    / reference_integral for i in range(2000)
+]
+
 cases = {"knots": [], "endpoint": [], "interiors": []}
 for model in range(5):
     # Keep the final endpoint separate so pre-fix failures are both observed.
@@ -108,6 +131,24 @@ int main(int argc,char **argv) {
       if(!std::isfinite(cdf[i]) || cdf[i]<0 || (i && cdf[i]<cdf[i-1]))
         return 1;
     if(std::abs(cdf[IMF_TABLE_ENTRIES-1]-.1508)>1.e-14) return 1;
+    if(cdf[0]!=0) {
+      std::fprintf(stderr,"FAIL: CDF must start at zero, got %.17g\n",cdf[0]);
+      return 1;
+    }
+    double max_error=0;
+    for(int i=0;i<IMF_TABLE_ENTRIES;i++) {
+      double reference;
+      if(std::scanf("%lf",&reference)!=1) return 1;
+      max_error=std::fmax(max_error,std::abs(cdf[i]-reference));
+    }
+    // Simpson panels that cross a rate-table knot incur discretization
+    // error; this tolerance is well below the old first-panel discrepancy.
+    if(max_error>1.e-6) {
+      std::fprintf(stderr,"FAIL: CDF integral discrepancy %.17g\n",max_error);
+      return 1;
+    }
+    std::printf("CDF first nonzero bin=%.17g; max integral error=%.17g\n",
+                cdf[1],max_error);
     delete[] cdf;
   } else {
     int model, count=0;
@@ -141,6 +182,8 @@ with tempfile.TemporaryDirectory(prefix="aeos-snia-rates-") as temp:
     for name in args.case or [*cases, "cdf"]:
         data = "".join(f"{model} {year:.17g} {rate:.17g}\n"
                        for model, year, rate in cases.get(name, []))
+        if name == "cdf":
+            data = "".join(f"{value:.17g}\n" for value in cdf_reference)
         result = subprocess.run(command + [str(binary), name],
                                 input=data, text=True)
         failed |= result.returncode != 0

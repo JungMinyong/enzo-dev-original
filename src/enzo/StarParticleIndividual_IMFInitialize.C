@@ -69,10 +69,12 @@ int InitializeDTD(float *& data){
   const double max_time = log10(14.0E9); // yr
   const double dt = (max_time-min_time)/(double(IMF_TABLE_ENTRIES)-1);
 
-  double t=0.0 ,t_prev = 0.0;
+  double t=0.0, t_prev = POW(10.0, min_time);
   const double inv_six = 1.0/6.0;
-  double f_a = Ruiter_SNIa_DTD(POW(10.0,(min_time)), 0); // 0 = total
-  data[0] = f_a;
+  double f_a = Ruiter_SNIa_DTD(t_prev, 0); // 0 = total
+  // This is a cumulative probability, not a rate. Its support starts at
+  // the first tabulated age; integrate only intervals after that age.
+  data[0] = 0.0;
   for (int i = 1; i < IMF_TABLE_ENTRIES; i++){
     t = POW(10.0, min_time + dt*i); // time in yr
 

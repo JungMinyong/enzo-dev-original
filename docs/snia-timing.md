@@ -54,6 +54,11 @@ linking completed. No galaxy simulation was run for this change.
 
 ## Rate comparison
 
+This figure predates the separate
+[CDF initialization correction](snia-dtd-integration.md). Its numerical
+values describe the earlier distribution; rerunning the plotting script
+now uses the corrected CDF.
+
 ![SNIa rate comparison](figures/snia-timing-comparison.png)
 
 The plot compares the sampled model-2 distribution without a WD gate, the
