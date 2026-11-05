@@ -1,0 +1,32 @@
+{
+  "metallicity": 0.00054,
+  "birth_epoch_Myr": 83.0,
+  "normalization_parameter": 0.1508,
+  "RNG_outcomes": 65536,
+  "selected_event_fraction": 0.1508026123046875,
+  "stellar_table": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/newchem/parsec_zams.in",
+  "masses": {
+    "3": {
+      "WD_formation_age_Myr": 297.3238589075396,
+      "fixed_probability_at_WD_formation": 0.01947021484375,
+      "old_probability_at_WD_formation": 0.010955810546875,
+      "fixed_probability_by_age_14Gyr": 0.1508026123046875,
+      "old_probability_by_age_14Gyr": 0.150787353515625
+    },
+    "8": {
+      "WD_formation_age_Myr": 38.37204911298151,
+      "fixed_probability_at_WD_formation": 0.0011444091796875,
+      "old_probability_at_WD_formation": 0.0,
+      "fixed_probability_by_age_14Gyr": 0.1508026123046875,
+      "old_probability_by_age_14Gyr": 0.150787353515625
+    }
+  },
+  "assumptions": [
+    "Time axis is age since original stellar birth.",
+    "Instantaneous WD gate; timestep/injection scheduling is omitted.",
+    "3 and 8 Msun cases assume WD formation; the exact 8 Msun routing boundary is unresolved.",
+    "Old code adds the absolute birth epoch to the sampled age.",
+    "Old mixed-unit floor is inactive for dtFixed=0.01 code units and TimeUnits=Myr_s.",
+    "Finite bins display the probability atom at WD formation as a spike."
+  ]
+}

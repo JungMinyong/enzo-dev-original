@@ -6,6 +6,7 @@ its upstream documentation.
 - [Grackle compatibility and physics choices](grackle.md)
 - [Deterministic artificial supernova events](artificial-supernova-events.md)
 - [Initial integration validation and known limitations](validation.md)
+- [SNIa model 2 timing correction](snia-timing.md)
 
 Add future physics audits, correction decisions, and validation summaries here.
 Keep runnable regression tests in `tests/` and simulation outputs outside the

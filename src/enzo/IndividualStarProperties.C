@@ -150,7 +150,8 @@ int grid::IndividualStarSetWDLifetime(void){
     }
 
     //
-    // lifetime is set relative to WD formation time (now)
+    // Store a duration from the original stellar birth, as required by
+    // the feedback trigger BirthTime + LifeTime.
     //
     float new_lifetime = -1;
     int result = 0;
@@ -187,8 +188,6 @@ int grid::IndividualStarSetWDLifetime(void){
       result = WDExplosionTime(new_lifetime);
 
       if (result > 0){
-        new_lifetime = fmax(new_lifetime,1.5*this->dtFixed);
-
         // we need to know which type of SNIa this will be given the rates
         float model_rates[4];
         // 0 : DTD, 1: sCH, 2: SDS, 3: HeRS (+1 for function since zero is total)
@@ -233,7 +232,12 @@ int grid::IndividualStarSetWDLifetime(void){
 
       } // if result > 0
 
-      new_lifetime = (new_lifetime)*yr_s / TimeUnits + ParticleAttribute[0][i];
+      // The DTD includes the progenitor's pre-WD evolution. Keep its sampled
+      // age, even if already past: only WD particles can trigger SNIa, so
+      // these events fire at the first eligible feedback check after WD
+      // formation. Do not add BirthTime or impose a new waiting time.
+      // The non-exploding outcome is also returned in years.
+      new_lifetime = new_lifetime * yr_s / TimeUnits;
 
 
     } else {
