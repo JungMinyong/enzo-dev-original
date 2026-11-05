@@ -54,6 +54,8 @@ checks the pre-fix routines and is expected to fail. The harness extracts the
 actual functions and compiles them with double precision matching this Enzo
 configuration; it does not execute a complete stellar lifecycle or galaxy.
 
-The Ruiter rate function's duplicate 2 Gyr knots and its direct upper-index
-lookup remain separate issues: that function bypasses the corrected generic
-interval selector. Historical reports describe the pre-fix implementation.
+The Ruiter rate function bypasses this interval selector. Its duplicate
+2 Gyr knots are addressed in the separate
+[SNIa rate-table correction](snia-rate-interpolation.md); its direct
+upper-index lookup remains unchanged. Historical reports describe the
+pre-fix implementation.
