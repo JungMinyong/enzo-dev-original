@@ -381,6 +381,13 @@ int StellarYieldsGetYieldTablePosition(const StellarYieldsDataType & table,
 
   int width, bin_number;
 
+  // Mass interpolation needs an interval. PopIII tables legitimately have
+  // one metallicity; their mass-only consumer ignores the returned j.
+  if (table.Nm < 2 || table.Nz < 1) {
+    i = j = -1;
+    return FAIL;
+  }
+
   float Z = (metallicity); // not in solar units
 
   float interp_M = M;
@@ -413,8 +420,18 @@ int StellarYieldsGetYieldTablePosition(const StellarYieldsDataType & table,
     }
   }
 
-  i = search_lower_bound(table.M, interp_M, 0, table.Nm, table.Nm);
-  j = search_lower_bound(table.Z, Z, 0, table.Nz, table.Nz);
+  i = (interp_M == table.M[table.Nm-1]) ? table.Nm-2 :
+      search_lower_bound(table.M, interp_M, 0, table.Nm, table.Nm);
+  if (table.Nz == 1) {
+    j = 0;
+  } else {
+    j = (Z == table.Z[table.Nz-1]) ? table.Nz-2 :
+        search_lower_bound(table.Z, Z, 0, table.Nz, table.Nz);
+  }
+
+  if (i < 0 || i >= table.Nm-1 ||
+      j < 0 || (table.Nz > 1 && j >= table.Nz-1))
+    ENZO_FAIL("FAILURE IN STELLAR YIELDS INTERPOLATION INTERVAL");
 
   if( (interp_M > table.M[i+1]) || interp_M < (table.M[i])){
     printf("interp_m = %"ESYM" i = %"ISYM" j = %"ISYM"\n", interp_M, i, j);

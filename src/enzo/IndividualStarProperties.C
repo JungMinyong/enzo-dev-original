@@ -2381,15 +2381,27 @@ int LinearInterpolationCoefficients(float &t, int &i,
    * ------------------------------------------------------------
    */
 
+  // A linear interpolation interval requires two points. In particular,
+  // do not read either endpoint of an empty axis.
+  if (x1a_size < 2) {
+    t = -1;
+    i = -1;
+    return FAIL;
+  }
+
   /* make sure value is within the bounds - FAIL if not */
   if( ( x1 < x1a[0] ) || ( x1 > x1a[x1a_size -1] )){
       t = -1;
       return FAIL;
   }
 
-  i = search_lower_bound((float*)x1a, x1, 0, x1a_size, x1a_size);
+  // The upper knot belongs to the last interval with weight one.
+  // search_lower_bound returns an element index, which would otherwise
+  // select the final element and make the subsequent i+1 read invalid.
+  i = (x1 == x1a[x1a_size-1]) ? x1a_size-2 :
+      search_lower_bound((float*)x1a, x1, 0, x1a_size, x1a_size);
 
-  if (i < 0 || i > x1a_size){ ENZO_FAIL("FAILURE IN INTERPOLATION COEFFICIENTS"); }
+  if (i < 0 || i >= x1a_size-1){ ENZO_FAIL("FAILURE IN INTERPOLATION COEFFICIENTS"); }
 
   t = LinearInterpolationCoefficient(i, x1, x1a);
 
