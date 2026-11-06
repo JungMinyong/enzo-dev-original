@@ -222,7 +222,7 @@ int grid::GrackleWrapper()
   //
 
   /* set up grackle fields object */
-  grackle_field_data my_fields = {}; // zero every optional field, including newchem extensions
+  grackle_field_data my_fields = {}; // zero every optional field
   if (grackle_data->metal_cooling && MetalPointer == NULL)
     ENZO_FAIL("Grackle metal_cooling requires a metal density field.");
 

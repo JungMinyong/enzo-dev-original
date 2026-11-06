@@ -57,5 +57,5 @@ doc/manual/build
 
 run/results.js
 
-# Generated backend/compiler fingerprint
+# Generated compiler/library fingerprint
 src/enzo/.grackle-build-config*

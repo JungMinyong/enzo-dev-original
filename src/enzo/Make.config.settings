@@ -355,7 +355,3 @@
 #-----------------------------------------------------------------------
 
      CONFIG_MEMORYPOOL = no
-
-
-# Explicit Grackle API profile; unset fails when compiling Grackle support.
-CONFIG_GRACKLE_BACKEND = unset

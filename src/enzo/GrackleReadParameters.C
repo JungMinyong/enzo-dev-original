@@ -23,7 +23,7 @@
 #include "typedefs.h"
 #include "global_data.h"
 #include "CosmologyParameters.h"
-#include "GrackleCompatibility.h"
+#include "GrackleParameters.h"
 
 
 int GetUnits(float *DensityUnits, float *LengthUnits,
@@ -143,7 +143,7 @@ int GrackleReadParameters(FILE *fptr, FLOAT InitTime)
                   &grackle_data->LWbackground_sawtooth_suppression);
     sscanf(line, "H2FormationOnDust = %"ISYM, &explicit_h2_dust);
     if (sscanf(line, "GrackleDustAbundanceModel = %"ISYM, &removed_dust_parameter) == 1)
-      ENZO_FAIL("GrackleDustAbundanceModel was removed. Use dust_chemistry=1 (standard), 4 (historical Remy-Ruyer), or 5 (corrected Remy-Ruyer).");
+      ENZO_FAIL("GrackleDustAbundanceModel was removed. Use dust_chemistry=1 (standard) or 5 (corrected Remy-Ruyer).");
 
     ret += sscanf(line, "local_dust_to_gas_ratio = %lf",
                   &grackle_data->local_dust_to_gas_ratio);
@@ -187,7 +187,7 @@ int GrackleReadParameters(FILE *fptr, FLOAT InitTime)
   grackle_data->metal_cooling                  = (Eint32) MetalCooling;
   if (explicit_h2_dust == 0 && grackle_data->dust_chemistry > 0 && MultiSpecies > 1)
     ENZO_FAIL("Explicit H2FormationOnDust=0 conflicts with dust chemistry, which enables H2 formation. Remove the obsolete switch to accept dust chemistry behavior.");
-  ConfigureGrackleCompatibility();
+  ConfigureGrackleParameters();
   grackle_data->cmb_temperature_floor          = (Eint32) CloudyCoolingData.CMBTemperatureFloor;
   grackle_data->three_body_rate                = (Eint32) ThreeBodyRate;
   grackle_data->cie_cooling                    = (Eint32) CIECooling;

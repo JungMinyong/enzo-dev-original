@@ -294,7 +294,6 @@ show-config:
 	@echo "   CONFIG_FAST_SIB  [fastsib-{yes,no}]                       : $(CONFIG_FAST_SIB)"
 	@echo "   CONFIG_GRAVITY_4S  [gravity-4s-{yes,no}]                  : $(CONFIG_GRAVITY_4S)"
 	@echo "   CONFIG_ENZO_PERFORMANCE  [enzo-performance-{yes,no}]      : $(CONFIG_ENZO_PERFORMANCE)"
-	@echo "   CONFIG_GRACKLE_BACKEND : $(CONFIG_GRACKLE_BACKEND) [grackle-backend-{main,newchem,emerick}]"
 	@echo "   CONFIG_GRACKLE  [grackle-{yes,no}]                        : $(CONFIG_GRACKLE)"
 	@echo "   CONFIG_LOG2ALLOC  [log2alloc-{yes,no}]                    : $(CONFIG_LOG2ALLOC)"
 	@echo "   CONFIG_INDIVIDUALSTAR [individualstar-{yes,no}]           : $(CONFIG_INDIVIDUALSTAR)"
@@ -1018,21 +1017,3 @@ CONFIG_LOG2ALLOC-%: suggest-clean
 
 
 #-----------------------------------------------------------------------
-
-.PHONY: grackle-backend-main
-grackle-backend-main: suggest-clean
-	@sed -i '/^CONFIG_GRACKLE_BACKEND =/d' $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_BACKEND = main' >> $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_BACKEND = main; clean rebuild required'
-
-.PHONY: grackle-backend-newchem
-grackle-backend-newchem: suggest-clean
-	@sed -i '/^CONFIG_GRACKLE_BACKEND =/d' $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_BACKEND = newchem' >> $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_BACKEND = newchem; clean rebuild required'
-
-.PHONY: grackle-backend-emerick
-grackle-backend-emerick: suggest-clean
-	@sed -i '/^CONFIG_GRACKLE_BACKEND =/d' $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_BACKEND = emerick' >> $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_BACKEND = emerick; clean rebuild required'

@@ -8,7 +8,7 @@ extern "C" {
 #define ROOT_PROCESSOR 0
 int MyProcessorNumber = 0;
 int GrackleLWBackgroundModel, H2FormationOnDust, MultiSpecies = 2;
-#include "GrackleCompatibility.h"
+#include "GrackleParameters.h"
 int main(int argc, char **argv) {
   if (argc != 4 && argc != 5) return 3;
   chemistry_data chemistry;
@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
   grackle_data->dust_chemistry = atoi(argv[1]);
   H2FormationOnDust = atoi(argv[2]);
   GrackleLWBackgroundModel = atoi(argv[3]);
-  try { ConfigureGrackleCompatibility(); }
+  try { ConfigureGrackleParameters(); }
   catch (const std::runtime_error &e) { fprintf(stderr, "%s\n", e.what()); return 2; }
   if (argc == 5) {
     grackle_data->use_grackle = 1;
@@ -31,18 +31,11 @@ int main(int argc, char **argv) {
     units.time_units = 3.1557e11;
     units.velocity_units = units.length_units / units.time_units;
     if (!initialize_chemistry_data(&units)) return 4;
-    std::vector<double> rates;
-    GracklePhotonRateTable("k1", rates);
-    if (rates.size() != (size_t) grackle_data->NumberOfTemperatureBins || rates.front() < 0 || rates.back() < 0) return 5;
-    GracklePhotonRateTable("k2", rates);
-    if (rates.front() < 0 || rates.back() < 0) return 5;
-#ifdef ENZO_GRACKLE_emerick
-    if (chemistry.dust_chemistry == 4 && chemistry.h2_on_dust != 3) return 6;
-    if (chemistry.dust_chemistry == 5 && chemistry.h2_on_dust != 2) return 6;
-    _free_chemistry_data(&chemistry, &grackle_rates);
-#else
+    const int n = grackle_data->NumberOfTemperatureBins;
+    if (n < 2 || !grackle_rates.k1 || !grackle_rates.k2) return 5;
+    if (grackle_rates.k1[0] < 0 || grackle_rates.k1[n-1] < 0 ||
+        grackle_rates.k2[0] < 0 || grackle_rates.k2[n-1] < 0) return 5;
     free_chemistry_data();
-#endif
   }
   return 0;
 }
