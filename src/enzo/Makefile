@@ -419,7 +419,7 @@ include $(ENZO_DIR)/Make.config.targets
 # Rebuild every object when compiler flags or the selected library change.
 .PHONY: grackle-build-force
 .grackle-build-config: grackle-build-force
-	@printf '%s\n' '$(CONFIG_GRACKLE_BACKEND)' '$(CONFIG_GRACKLE_LEGACY_LW)' '$(CXX) $(CXXFLAGS)' '$(DEFINES) $(INCLUDES)' '$(LIBS)' > $@.tmp
+	@printf '%s\n' '$(CONFIG_GRACKLE_BACKEND)' '$(CXX) $(CXXFLAGS)' '$(DEFINES) $(INCLUDES)' '$(LIBS)' > $@.tmp
 	@cmp -s $@.tmp $@ || mv $@.tmp $@
 	@rm -f $@.tmp
 $(OBJS_LIB) enzo.o: .grackle-build-config

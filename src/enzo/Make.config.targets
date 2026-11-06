@@ -295,7 +295,6 @@ show-config:
 	@echo "   CONFIG_GRAVITY_4S  [gravity-4s-{yes,no}]                  : $(CONFIG_GRAVITY_4S)"
 	@echo "   CONFIG_ENZO_PERFORMANCE  [enzo-performance-{yes,no}]      : $(CONFIG_ENZO_PERFORMANCE)"
 	@echo "   CONFIG_GRACKLE_BACKEND : $(CONFIG_GRACKLE_BACKEND) [grackle-backend-{main,newchem,emerick}]"
-	@echo "   CONFIG_GRACKLE_LEGACY_LW : $(CONFIG_GRACKLE_LEGACY_LW) [grackle-legacy-lw-{no,yes}]"
 	@echo "   CONFIG_GRACKLE  [grackle-{yes,no}]                        : $(CONFIG_GRACKLE)"
 	@echo "   CONFIG_LOG2ALLOC  [log2alloc-{yes,no}]                    : $(CONFIG_LOG2ALLOC)"
 	@echo "   CONFIG_INDIVIDUALSTAR [individualstar-{yes,no}]           : $(CONFIG_INDIVIDUALSTAR)"
@@ -1037,15 +1036,3 @@ grackle-backend-emerick: suggest-clean
 	@sed -i '/^CONFIG_GRACKLE_BACKEND =/d' $(MAKE_CONFIG_OVERRIDE)
 	@echo 'CONFIG_GRACKLE_BACKEND = emerick' >> $(MAKE_CONFIG_OVERRIDE)
 	@echo 'CONFIG_GRACKLE_BACKEND = emerick; clean rebuild required'
-
-.PHONY: grackle-legacy-lw-no
-grackle-legacy-lw-no: suggest-clean
-	@sed -i '/^CONFIG_GRACKLE_LEGACY_LW =/d' $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_LEGACY_LW = no' >> $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_LEGACY_LW = no; clean rebuild required'
-
-.PHONY: grackle-legacy-lw-yes
-grackle-legacy-lw-yes: suggest-clean
-	@sed -i '/^CONFIG_GRACKLE_LEGACY_LW =/d' $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_LEGACY_LW = yes' >> $(MAKE_CONFIG_OVERRIDE)
-	@echo 'CONFIG_GRACKLE_LEGACY_LW = yes; clean rebuild required'

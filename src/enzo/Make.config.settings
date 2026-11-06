@@ -359,4 +359,3 @@
 
 # Explicit Grackle API profile; unset fails when compiling Grackle support.
 CONFIG_GRACKLE_BACKEND = unset
-CONFIG_GRACKLE_LEGACY_LW = no

@@ -104,6 +104,7 @@ int GrackleReadParameters(FILE *fptr, FLOAT InitTime)
 
   char line[MAX_LINE_LENGTH];
   int explicit_h2_dust = -1;
+  int removed_dust_parameter;
   char *dummy = new char[MAX_LINE_LENGTH];
   dummy[0] = 0;
 
@@ -141,7 +142,8 @@ int GrackleReadParameters(FILE *fptr, FLOAT InitTime)
     ret += sscanf(line, "LWbackground_sawtooth_suppression = %d",
                   &grackle_data->LWbackground_sawtooth_suppression);
     sscanf(line, "H2FormationOnDust = %"ISYM, &explicit_h2_dust);
-    ret += sscanf(line, "GrackleDustAbundanceModel = %"ISYM, &GrackleDustAbundanceModel);
+    if (sscanf(line, "GrackleDustAbundanceModel = %"ISYM, &removed_dust_parameter) == 1)
+      ENZO_FAIL("GrackleDustAbundanceModel was removed. Use dust_chemistry=1 (standard), 4 (historical Remy-Ruyer), or 5 (corrected Remy-Ruyer).");
 
     ret += sscanf(line, "local_dust_to_gas_ratio = %lf",
                   &grackle_data->local_dust_to_gas_ratio);
