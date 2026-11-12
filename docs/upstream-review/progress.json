@@ -1,0 +1,14 @@
+{
+  "upstream": "7409c9a3ee0a8f53e3ada7a053098e2c559df71e",
+  "aeos": "0dbaa4beae8f1e411a6dd99680b9650d5960791b",
+  "inventory_total": 577,
+  "documented": 577,
+  "ordinary_category_counts": {
+    "3": 116,
+    "4": 285,
+    "1": 19,
+    "2": 47
+  },
+  "batches_completed": 12,
+  "last_commit": "7409c9a3ee0a8f53e3ada7a053098e2c559df71e"
+}

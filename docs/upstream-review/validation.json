@@ -1,0 +1,37 @@
+{
+  "review_date": "2026-10-31",
+  "coverage": {
+    "total": 577,
+    "ordinary": 416,
+    "merges": 161,
+    "batches": 12,
+    "unique_commit_ids": 577,
+    "missing_dispositions": 0
+  },
+  "patch_checks": {
+    "forward_pass": 65,
+    "reverse_pass": 9,
+    "both_fail": 342,
+    "exact_patch_equivalents": 1
+  },
+  "merge_inspection": {
+    "nonempty_combined": 6,
+    "nonempty_remerge": 12
+  },
+  "checks_passed": [
+    "manifest equals frozen git revision range in reverse topological order",
+    "each inventory entry occurs once in its numbered batch",
+    "each entry has a classification and assessment",
+    "category counts agree with progress record",
+    "all relative Markdown links and commit anchors resolve",
+    "both frozen branch tips unchanged",
+    "tracked production source unchanged",
+    "git diff --check"
+  ],
+  "not_performed": [
+    "cherry-picks or source repairs",
+    "builds or simulation runs",
+    "intrinsic-by-intrinsic third-party SIMD audit",
+    "runtime validation of proposed scientific changes"
+  ]
+}

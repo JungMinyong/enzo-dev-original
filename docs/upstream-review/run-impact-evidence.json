@@ -1,0 +1,1847 @@
+{
+  "review_date": "2026-10-31",
+  "scope": "Read-only configuration/call-path follow-up to all 577 upstream-only commits. Endpoint HDF5 screening is not an evolution rerun or full-history/pre-solver exposure test.",
+  "aeos_branch": "aeos-v2",
+  "aeos_tip": "0dbaa4beae8f1e411a6dd99680b9650d5960791b",
+  "h277_recorded_source_revision": "b1b85185e64873c1b1b83d23fbed03b4043b866a",
+  "upstream_tip": "7409c9a3ee0a8f53e3ada7a053098e2c559df71e",
+  "configuration_evidence": [
+    {
+      "path": "/home/wispedia/AA/ufds/h277/run1/parameter_file.txt",
+      "sha256": "0bcbeb1f2e8e3e115ebc0e26bbdfadc93a5d6d8ae127829d5a0494f8b09c5a42",
+      "parameters": {
+        "ProblemType": {
+          "value": "30",
+          "line": 2
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 5
+        },
+        "ComovingCoordinates": {
+          "value": "1",
+          "line": 29
+        },
+        "PartitionNestedGrids": {
+          "value": "1",
+          "line": 42
+        },
+        "WritePotential": {
+          "value": "1",
+          "line": 101
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 134
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 175
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 177
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 178
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 179
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 180
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 215
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 216
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 247
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 250
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 286
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/ufds/h277/run1/DD0000/DD0000",
+      "sha256": "6d1dcb15aff34297f5876859e9d4845f9f927f9b18752e7fde9dd4df3ae007d5",
+      "parameters": {
+        "InitialTime": {
+          "value": "0.81651185675238",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "391.08498200652",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 102
+        },
+        "ProblemType": {
+          "value": "30",
+          "line": 109
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 110
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 136
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 308
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 312
+        },
+        "WritePotential": {
+          "value": "1",
+          "line": 314
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 326
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 358
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 359
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 362
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 371
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 376
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 377
+        },
+        "HydrogenFractionByMass": {
+          "value": "0.760000",
+          "line": 405
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 454
+        },
+        "PartitionNestedGrids": {
+          "value": "1",
+          "line": 483
+        },
+        "ComovingCoordinates": {
+          "value": "1",
+          "line": 505
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 506
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 512
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 513
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 544
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 586
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 680
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 712
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 760
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/ufds/h277/run1/DD0125/DD0125",
+      "sha256": "75f8fa9ac6f222756e5e8bdbf5ab85a66d639749ffe69763d8d0c8eff03651a1",
+      "parameters": {
+        "InitialTime": {
+          "value": "16.806024590337",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "26.347882985442",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 102
+        },
+        "ProblemType": {
+          "value": "30",
+          "line": 109
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 110
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 136
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 308
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 312
+        },
+        "WritePotential": {
+          "value": "1",
+          "line": 314
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 326
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 358
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 359
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 362
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 371
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 376
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 377
+        },
+        "HydrogenFractionByMass": {
+          "value": "0.760000",
+          "line": 405
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 454
+        },
+        "PartitionNestedGrids": {
+          "value": "1",
+          "line": 483
+        },
+        "ComovingCoordinates": {
+          "value": "1",
+          "line": 505
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 506
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 512
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 513
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 544
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 586
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 680
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 712
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 760
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/run3-fiducial/input.enzo",
+      "sha256": "146aec1b3c246612b18c5a7184b5c6436b5657dc4155fe224e456ee59d3aad6f",
+      "parameters": {
+        "ProblemType": {
+          "value": "31",
+          "line": 9
+        },
+        "ComovingCoordinates": {
+          "value": "0",
+          "line": 12
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 17
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 48
+        },
+        "InitialTime": {
+          "value": "0",
+          "line": 63
+        },
+        "StopTime": {
+          "value": "120.0",
+          "line": 64
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 71
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 75
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 83
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 84
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 85
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 86
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 87
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 101
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 102
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 153
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 186
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 199
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 230
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/grackle-compatibility/deterministic-comparison/newchem/DD0000/DD0000",
+      "sha256": "4eafd1d80c283e98d09da54213dc7529a6ec11eb856dd3ab833182dedcf78402",
+      "parameters": {
+        "InitialTime": {
+          "value": "0",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "5",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 105
+        },
+        "ProblemType": {
+          "value": "31",
+          "line": 112
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 113
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 139
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 310
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 314
+        },
+        "WritePotential": {
+          "value": "0",
+          "line": 316
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 328
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 360
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 361
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 364
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 373
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 378
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 379
+        },
+        "HydrogenFractionByMass": {
+          "value": "-99999.000000",
+          "line": 407
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 456
+        },
+        "PartitionNestedGrids": {
+          "value": "0",
+          "line": 465
+        },
+        "ComovingCoordinates": {
+          "value": "0",
+          "line": 487
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 488
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 494
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 495
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 526
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 568
+        },
+        "IndividualStarICSupernovaEventFile": {
+          "value": "/home/wispedia/install/analysis_scripts/isolated_dwarf/tables/sn-events-fiducial-seed42.txt",
+          "line": 649
+        },
+        "IndividualStarICSupernovaNextEvent": {
+          "value": "0",
+          "line": 650
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 665
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 697
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 745
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/newchem/DD0011/DD0011",
+      "sha256": "d700160c1eef12b1346ed20b6d7d71b5f6905fd7e07c904855bfcf416da623ef",
+      "parameters": {
+        "InitialTime": {
+          "value": "5",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "150",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 105
+        },
+        "ProblemType": {
+          "value": "31",
+          "line": 112
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 113
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 139
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 310
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 314
+        },
+        "WritePotential": {
+          "value": "0",
+          "line": 316
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 328
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 360
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 361
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 364
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 373
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 378
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 379
+        },
+        "HydrogenFractionByMass": {
+          "value": "-99999.000000",
+          "line": 407
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 456
+        },
+        "PartitionNestedGrids": {
+          "value": "0",
+          "line": 465
+        },
+        "ComovingCoordinates": {
+          "value": "0",
+          "line": 487
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 488
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 494
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 495
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 526
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 568
+        },
+        "IndividualStarICSupernovaEventFile": {
+          "value": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/newchem/sn-events.txt",
+          "line": 649
+        },
+        "IndividualStarICSupernovaNextEvent": {
+          "value": "2",
+          "line": 650
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 665
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 697
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 745
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/newchem/DD0301/DD0301",
+      "sha256": "9aea2f7c6a7c04a4dde7f34e8011dfea34b891fe627c175865f4d298b5b1a17b",
+      "parameters": {
+        "InitialTime": {
+          "value": "150",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "150",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 105
+        },
+        "ProblemType": {
+          "value": "31",
+          "line": 112
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 113
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 139
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 310
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 314
+        },
+        "WritePotential": {
+          "value": "0",
+          "line": 316
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 328
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 360
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 361
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 364
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 373
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 378
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 379
+        },
+        "HydrogenFractionByMass": {
+          "value": "-99999.000000",
+          "line": 407
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 456
+        },
+        "PartitionNestedGrids": {
+          "value": "0",
+          "line": 465
+        },
+        "ComovingCoordinates": {
+          "value": "0",
+          "line": 487
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 488
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 494
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 495
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 526
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 568
+        },
+        "IndividualStarICSupernovaEventFile": {
+          "value": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/newchem/sn-events.txt",
+          "line": 649
+        },
+        "IndividualStarICSupernovaNextEvent": {
+          "value": "43",
+          "line": 650
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 665
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 697
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 745
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick/DD0011/DD0011",
+      "sha256": "318f57c24f3e13e32d5f87b6f1d9ce2bb4a3bfcb1414ce4c069bda43d60e6d32",
+      "parameters": {
+        "InitialTime": {
+          "value": "5",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "150",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 105
+        },
+        "ProblemType": {
+          "value": "31",
+          "line": 112
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 113
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 139
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 310
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 314
+        },
+        "WritePotential": {
+          "value": "0",
+          "line": 316
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 328
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 360
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 361
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 364
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 373
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 378
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 379
+        },
+        "HydrogenFractionByMass": {
+          "value": "0.760000",
+          "line": 407
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 456
+        },
+        "PartitionNestedGrids": {
+          "value": "0",
+          "line": 465
+        },
+        "ComovingCoordinates": {
+          "value": "0",
+          "line": 487
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 488
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 494
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 495
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 526
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 568
+        },
+        "IndividualStarICSupernovaEventFile": {
+          "value": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/emerick/sn-events.txt",
+          "line": 649
+        },
+        "IndividualStarICSupernovaNextEvent": {
+          "value": "2",
+          "line": 650
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 665
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 697
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 745
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick-standard/DD0011/DD0011",
+      "sha256": "411a5e1b8ea6b78983e8c429bb84bd6bbf53794172dee2dccba80d74de236c69",
+      "parameters": {
+        "InitialTime": {
+          "value": "5",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "150",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 105
+        },
+        "ProblemType": {
+          "value": "31",
+          "line": 112
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 113
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 139
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 310
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 314
+        },
+        "WritePotential": {
+          "value": "0",
+          "line": 316
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 328
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 360
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 361
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 364
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 373
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 378
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 379
+        },
+        "HydrogenFractionByMass": {
+          "value": "0.760000",
+          "line": 407
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 456
+        },
+        "PartitionNestedGrids": {
+          "value": "0",
+          "line": 465
+        },
+        "ComovingCoordinates": {
+          "value": "0",
+          "line": 487
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 488
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 494
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 495
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 526
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 568
+        },
+        "IndividualStarICSupernovaEventFile": {
+          "value": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/emerick-standard/sn-events.txt",
+          "line": 649
+        },
+        "IndividualStarICSupernovaNextEvent": {
+          "value": "2",
+          "line": 650
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 665
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 697
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 745
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick/DD0199/DD0199",
+      "sha256": "b2692e8f3b4720ccc8f538178da7f7d4f4b238205920746e58db5551e0b83e18",
+      "parameters": {
+        "InitialTime": {
+          "value": "99.000001172074",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "150",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 105
+        },
+        "ProblemType": {
+          "value": "31",
+          "line": 112
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 113
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 139
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 310
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 314
+        },
+        "WritePotential": {
+          "value": "0",
+          "line": 316
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 328
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 360
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 361
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 364
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 373
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 378
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 379
+        },
+        "HydrogenFractionByMass": {
+          "value": "0.760000",
+          "line": 407
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 456
+        },
+        "PartitionNestedGrids": {
+          "value": "0",
+          "line": 465
+        },
+        "ComovingCoordinates": {
+          "value": "0",
+          "line": 487
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 488
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 494
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 495
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 526
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 568
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 665
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 697
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 745
+        }
+      }
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick-standard/DD0194/DD0194",
+      "sha256": "86b1879a84339ff9a9769bf035fe7a2054ece2c6f3cf5f709245810c71678742",
+      "parameters": {
+        "InitialTime": {
+          "value": "96.500044995",
+          "line": 2
+        },
+        "StopTime": {
+          "value": "150",
+          "line": 6
+        },
+        "ParticleBoundaryType": {
+          "value": "3",
+          "line": 105
+        },
+        "ProblemType": {
+          "value": "31",
+          "line": 112
+        },
+        "HydroMethod": {
+          "value": "0",
+          "line": 113
+        },
+        "FluxCorrection": {
+          "value": "2",
+          "line": 139
+        },
+        "SelfGravity": {
+          "value": "1",
+          "line": 310
+        },
+        "ComputePotential": {
+          "value": "0",
+          "line": 314
+        },
+        "WritePotential": {
+          "value": "0",
+          "line": 316
+        },
+        "GalaxySimulationRPSWind": {
+          "value": "0",
+          "line": 328
+        },
+        "use_grackle": {
+          "value": "1",
+          "line": 360
+        },
+        "RadiativeCooling": {
+          "value": "1",
+          "line": 361
+        },
+        "MultiSpecies": {
+          "value": "2",
+          "line": 364
+        },
+        "MetalCooling": {
+          "value": "1",
+          "line": 373
+        },
+        "CRModel": {
+          "value": "0",
+          "line": 378
+        },
+        "CRDiffusion": {
+          "value": "0",
+          "line": 379
+        },
+        "HydrogenFractionByMass": {
+          "value": "0.760000",
+          "line": 407
+        },
+        "ResetMagneticField": {
+          "value": "0",
+          "line": 456
+        },
+        "PartitionNestedGrids": {
+          "value": "0",
+          "line": 465
+        },
+        "ComovingCoordinates": {
+          "value": "0",
+          "line": 487
+        },
+        "StarParticleCreation": {
+          "value": "32768",
+          "line": 488
+        },
+        "StarFormationOncePerRootGridTimeStep": {
+          "value": "0",
+          "line": 494
+        },
+        "StarParticleFeedback": {
+          "value": "32768",
+          "line": 495
+        },
+        "MultiMetals": {
+          "value": "2",
+          "line": 526
+        },
+        "PopIIIRadiationModel": {
+          "value": "1",
+          "line": 568
+        },
+        "IndividualStarPopIIIFormation": {
+          "value": "1",
+          "line": 665
+        },
+        "IndividualStarSNIaModel": {
+          "value": "2",
+          "line": 697
+        },
+        "UseHydro": {
+          "value": "1",
+          "line": 745
+        }
+      }
+    }
+  ],
+  "build_and_library_evidence": [
+    {
+      "path": "/home/wispedia/AA/ufds/h277/run1/Enzo_Build",
+      "sha256": "51c566e87900f31abfa353498dc1f79275b477dd444851bc6713b4b3e3c25c10",
+      "selected_lines": [
+        {
+          "line": 5,
+          "text": "Git Branch   aeos"
+        },
+        {
+          "line": 6,
+          "text": "Git Revision b1b85185e64873c1b1b83d23fbed03b4043b866a"
+        },
+        {
+          "line": 21,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/ufds/h277/run1/GRACKLE_INFO",
+      "sha256": "0f053eb175fce9056160d5701cb59f5f5462cefe94faf6b4600fe2f66adb0af5",
+      "selected_lines": [
+        {
+          "line": 4,
+          "text": "Git Branch   grackle-emerick"
+        },
+        {
+          "line": 5,
+          "text": "Git Revision a88fce5bdb66e57b0e46b593130171dd1bb5d447"
+        },
+        {
+          "line": 12,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        },
+        {
+          "line": 67,
+          "text": "primordial_chemistry              = 2"
+        },
+        {
+          "line": 74,
+          "text": "h2_on_dust                        = 2"
+        },
+        {
+          "line": 87,
+          "text": "HydrogenFractionByMass            = 0.76"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/ufds/h277/run1/DD0000/DD0000.configure",
+      "sha256": "51c566e87900f31abfa353498dc1f79275b477dd444851bc6713b4b3e3c25c10",
+      "selected_lines": [
+        {
+          "line": 5,
+          "text": "Git Branch   aeos"
+        },
+        {
+          "line": 6,
+          "text": "Git Revision b1b85185e64873c1b1b83d23fbed03b4043b866a"
+        },
+        {
+          "line": 21,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/ufds/h277/run1/DD0125/DD0125.configure",
+      "sha256": "51c566e87900f31abfa353498dc1f79275b477dd444851bc6713b4b3e3c25c10",
+      "selected_lines": [
+        {
+          "line": 5,
+          "text": "Git Branch   aeos"
+        },
+        {
+          "line": 6,
+          "text": "Git Revision b1b85185e64873c1b1b83d23fbed03b4043b866a"
+        },
+        {
+          "line": 21,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/newchem/Enzo_Build",
+      "sha256": "01e89c0719d096af8d6d93649f48076c49c6b6125c3d390e1526a4e6ed190c52",
+      "selected_lines": [
+        {
+          "line": 5,
+          "text": "Git Branch   aeos-v2"
+        },
+        {
+          "line": 6,
+          "text": "Git Revision 72ee7320821cdc5fdfba3737438309698525701e"
+        },
+        {
+          "line": 21,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        },
+        {
+          "line": 49,
+          "text": "CONFIG_GRACKLE_BACKEND : newchem [grackle-backend-{main,newchem,emerick}]"
+        },
+        {
+          "line": 50,
+          "text": "CONFIG_GRACKLE_LEGACY_LW : no [grackle-legacy-lw-{no,yes}]"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/newchem/GRACKLE_INFO",
+      "sha256": "164e1fe92feada62ed0221dab4032e4a0762539c7f11cbce59dc682a4dea71df",
+      "selected_lines": [
+        {
+          "line": 4,
+          "text": "Git Branch   N/A"
+        },
+        {
+          "line": 5,
+          "text": "Git Revision N/A"
+        },
+        {
+          "line": 18,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        },
+        {
+          "line": 46,
+          "text": "CONFIG_GRACKLE_BACKEND : newchem [grackle-backend-{main,newchem,emerick}]"
+        },
+        {
+          "line": 47,
+          "text": "CONFIG_GRACKLE_LEGACY_LW : no [grackle-legacy-lw-{no,yes}]"
+        },
+        {
+          "line": 79,
+          "text": "primordial_chemistry              = 2"
+        },
+        {
+          "line": 92,
+          "text": "h2_on_dust                        = 0"
+        },
+        {
+          "line": 110,
+          "text": "HydrogenFractionByMass            = 0.76"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick/Enzo_Build",
+      "sha256": "bb072ff7b8930075acef5faa34d84d9d785901294986546bc13fe3f54c49cbc0",
+      "selected_lines": [
+        {
+          "line": 5,
+          "text": "Git Branch   aeos-v2"
+        },
+        {
+          "line": 6,
+          "text": "Git Revision 72ee7320821cdc5fdfba3737438309698525701e"
+        },
+        {
+          "line": 21,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        },
+        {
+          "line": 49,
+          "text": "CONFIG_GRACKLE_BACKEND : emerick [grackle-backend-{main,newchem,emerick}]"
+        },
+        {
+          "line": 50,
+          "text": "CONFIG_GRACKLE_LEGACY_LW : no [grackle-legacy-lw-{no,yes}]"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick/GRACKLE_INFO",
+      "sha256": "af8fa0287b186f4c7faa6563b768eb26502920ae0982cd3dd2ba57030ea1c98c",
+      "selected_lines": [
+        {
+          "line": 4,
+          "text": "Git Branch   grackle-emerick"
+        },
+        {
+          "line": 5,
+          "text": "Git Revision a88fce5bdb66e57b0e46b593130171dd1bb5d447"
+        },
+        {
+          "line": 12,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        },
+        {
+          "line": 67,
+          "text": "primordial_chemistry              = 2"
+        },
+        {
+          "line": 74,
+          "text": "h2_on_dust                        = 2"
+        },
+        {
+          "line": 87,
+          "text": "HydrogenFractionByMass            = 0.76"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick-standard/Enzo_Build",
+      "sha256": "bb072ff7b8930075acef5faa34d84d9d785901294986546bc13fe3f54c49cbc0",
+      "selected_lines": [
+        {
+          "line": 5,
+          "text": "Git Branch   aeos-v2"
+        },
+        {
+          "line": 6,
+          "text": "Git Revision 72ee7320821cdc5fdfba3737438309698525701e"
+        },
+        {
+          "line": 21,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        },
+        {
+          "line": 49,
+          "text": "CONFIG_GRACKLE_BACKEND : emerick [grackle-backend-{main,newchem,emerick}]"
+        },
+        {
+          "line": 50,
+          "text": "CONFIG_GRACKLE_LEGACY_LW : no [grackle-legacy-lw-{no,yes}]"
+        }
+      ]
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick-standard/GRACKLE_INFO",
+      "sha256": "05b57cbe8ab11f054fa3ab3f441f2fdc8af4c38fe1a55a2774e363825844a85c",
+      "selected_lines": [
+        {
+          "line": 4,
+          "text": "Git Branch   grackle-emerick"
+        },
+        {
+          "line": 5,
+          "text": "Git Revision a88fce5bdb66e57b0e46b593130171dd1bb5d447"
+        },
+        {
+          "line": 12,
+          "text": "CONFIG_PRECISION  [precision-{32,64}]                     : 64"
+        },
+        {
+          "line": 67,
+          "text": "primordial_chemistry              = 2"
+        },
+        {
+          "line": 74,
+          "text": "h2_on_dust                        = 1"
+        },
+        {
+          "line": 87,
+          "text": "HydrogenFractionByMass            = 0.76"
+        }
+      ]
+    }
+  ],
+  "hierarchy_field_lists": [
+    {
+      "path": "/home/wispedia/AA/ufds/h277/run1/DD0125/DD0125.hierarchy",
+      "sha256": "a53470e0f925c074c8809f2971a7fcfd1977175776db4188c9b833505e4d973a",
+      "grid_records": 3030,
+      "distinct_field_lists": [
+        [
+          0,
+          4,
+          5,
+          6,
+          1,
+          2,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          20,
+          101,
+          102,
+          103,
+          106,
+          107,
+          115,
+          120,
+          121,
+          133,
+          151,
+          21,
+          22,
+          268,
+          269,
+          270,
+          95,
+          271,
+          272,
+          273,
+          96,
+          267,
+          30,
+          23,
+          24,
+          25,
+          27,
+          29,
+          262,
+          261,
+          34,
+          35,
+          36,
+          94,
+          260,
+          263
+        ]
+      ],
+      "all_grids_have_metallicity_field_type_20": true,
+      "any_grid_has_sncolour_field_type_19": false,
+      "total_recorded_active_particles": 0
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/newchem/DD0301/DD0301.hierarchy",
+      "sha256": "631598c0d33e3bcee18fc82ddc54012a9f476565760cc41219d4805301a7ab05",
+      "grid_records": 81,
+      "distinct_field_lists": [
+        [
+          0,
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          20,
+          101,
+          102,
+          103,
+          106,
+          107,
+          115,
+          120,
+          121,
+          133,
+          151,
+          21,
+          22,
+          268,
+          95,
+          271,
+          272,
+          273,
+          96,
+          267,
+          269,
+          270,
+          23,
+          24,
+          25,
+          27,
+          29,
+          262,
+          261,
+          34,
+          35,
+          36,
+          94,
+          260,
+          263
+        ]
+      ],
+      "all_grids_have_metallicity_field_type_20": true,
+      "any_grid_has_sncolour_field_type_19": false,
+      "total_recorded_active_particles": 0
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick/DD0199/DD0199.hierarchy",
+      "sha256": "af6246aae5d1cf62ef40132f0c47bed54c80efa7f563f0bcd3a8d6705ab6bbf8",
+      "grid_records": 406,
+      "distinct_field_lists": [
+        [
+          0,
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          20,
+          101,
+          102,
+          103,
+          106,
+          107,
+          115,
+          120,
+          121,
+          133,
+          151,
+          21,
+          22,
+          268,
+          95,
+          271,
+          272,
+          273,
+          96,
+          267,
+          269,
+          270,
+          23,
+          24,
+          25,
+          27,
+          29,
+          262,
+          261,
+          34,
+          35,
+          36,
+          94,
+          260,
+          263
+        ]
+      ],
+      "all_grids_have_metallicity_field_type_20": true,
+      "any_grid_has_sncolour_field_type_19": false,
+      "total_recorded_active_particles": 0
+    },
+    {
+      "path": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick-standard/DD0194/DD0194.hierarchy",
+      "sha256": "ac8087c336430a207626e2776e678a3971d608475b598f4b6292bcd73c82ab6e",
+      "grid_records": 337,
+      "distinct_field_lists": [
+        [
+          0,
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          20,
+          101,
+          102,
+          103,
+          106,
+          107,
+          115,
+          120,
+          121,
+          133,
+          151,
+          21,
+          22,
+          268,
+          95,
+          271,
+          272,
+          273,
+          96,
+          267,
+          269,
+          270,
+          23,
+          24,
+          25,
+          27,
+          29,
+          262,
+          261,
+          34,
+          35,
+          36,
+          94,
+          260,
+          263
+        ]
+      ],
+      "all_grids_have_metallicity_field_type_20": true,
+      "any_grid_has_sncolour_field_type_19": false,
+      "total_recorded_active_particles": 0
+    }
+  ],
+  "metal_endpoint_screening": [
+    {
+      "case": "h277",
+      "snapshot": "/home/wispedia/AA/ufds/h277/run1/DD0125/DD0125",
+      "time_code": 16.806024590337,
+      "redshift": 8.4507493969028,
+      "grids": 3030,
+      "cells_including_covered_coarse_cells": 83635640,
+      "max_metal_density_over_gas_density": 0.35117045119167073,
+      "cells_above_0_9": 0,
+      "nonpositive_density_cells": 0,
+      "nonfinite_ratio_cells": 0,
+      "method": "Read Density and Metal_Density in every stored grid; sum SN_Colour if present. Stored active cells include covered coarse cells, so counts are not composite AMR counts. No ghost cells are stored in these datasets. This is one output time, not a history or pre-solver census.",
+      "elapsed_seconds": 55.51026419363916
+    },
+    {
+      "case": "newchem",
+      "snapshot": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/newchem/DD0301/DD0301",
+      "time_Myr": 150.0,
+      "grids": 81,
+      "cells_including_covered_coarse_cells": 2494432,
+      "max_metal_density_over_gas_density": 0.0005484460631353786,
+      "cells_above_0_9": 0,
+      "nonpositive_density_cells": 0,
+      "nonfinite_ratio_cells": 0
+    },
+    {
+      "case": "emerick",
+      "snapshot": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick/DD0199/DD0199",
+      "time_Myr": 99.000001172074,
+      "grids": 406,
+      "cells_including_covered_coarse_cells": 3278840,
+      "max_metal_density_over_gas_density": 0.0012768818563036646,
+      "cells_above_0_9": 0,
+      "nonpositive_density_cells": 0,
+      "nonfinite_ratio_cells": 0
+    },
+    {
+      "case": "emerick-standard",
+      "snapshot": "/home/wispedia/AA/isolated/runs/deterministic-150Myr/login-20261031-023139-1239130/emerick-standard/DD0194/DD0194",
+      "time_Myr": 96.500044995,
+      "grids": 337,
+      "cells_including_covered_coarse_cells": 3117808,
+      "max_metal_density_over_gas_density": 0.0008337220380017881,
+      "cells_above_0_9": 0,
+      "nonpositive_density_cells": 0,
+      "nonfinite_ratio_cells": 0
+    }
+  ],
+  "source_verification": {
+    "current_src_matches_frozen_aeos_tip": true,
+    "Grid_CorrectForRefinedFluxes.C": {
+      "current_blob": "868584227671ce5764c9b9575864728538374cb3",
+      "h277_recorded_revision_blob": "868584227671ce5764c9b9575864728538374cb3"
+    },
+    "StarParticleFinalize.C": {
+      "current_blob": "e39d75e2e021a49be4e306d85c2d9931171d16d7",
+      "h277_recorded_revision_blob": "e39d75e2e021a49be4e306d85c2d9931171d16d7"
+    }
+  },
+  "metal_endpoint_screening_method": "Read gas Density and total Metal_Density for every stored grid; add SN_Colour if present. Stored datasets contain active cells; covered coarse cells are included. Ratios use code densities, which cancel their common units. Counts are not composite AMR counts or masses. One selected last output per case, with no scan of intermediate states or solver inputs.",
+  "validation": {
+    "local_markdown_links_and_explicit_anchors_checked": 108,
+    "link_errors": [],
+    "source_diff_against_frozen_tip_empty": true,
+    "selected_configuration_and_provenance_files": 21,
+    "endpoint_grid_total": 3854,
+    "endpoint_stored_active_cell_total": 92526720,
+    "no_new_evolution_runs": true
+  }
+}
