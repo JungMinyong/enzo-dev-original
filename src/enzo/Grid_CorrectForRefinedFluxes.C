@@ -631,8 +631,8 @@ int grid::CorrectForRefinedFluxes(fluxes *InitialFluxes,
                 // If the flux correction was already applied, then undo it.
                 if (undoIndex <= index) {
                   BaryonField[ffield][FieldIndex + Offset]
-                    -= (InitialFluxes->RightFluxes[field][dim][FluxIndex]
-                    - RefinedFluxes->LeftFluxes[field][dim][RefinedFluxIndex]);
+                    -= (InitialFluxes->RightFluxes[ffield][dim][FluxIndex]
+                    - RefinedFluxes->LeftFluxes[ffield][dim][RefinedFluxIndex]);
                 }
                 // Set the refined fluxes equal to the initial fluxes, so i
                 // that no further correction will be applied.
