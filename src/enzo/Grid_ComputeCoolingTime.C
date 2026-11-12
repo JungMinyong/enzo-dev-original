@@ -239,9 +239,12 @@ int grid::ComputeCoolingTime(float *cooling_time, int CoolingTimeOnly, int Retur
     g_grid_end = new Eint32[GridRank];
     for (i = 0; i < GridRank; i++) {
       g_grid_dimension[i] = (Eint32) GridDimension[i];
-      g_grid_start[i] = 0;
-      g_grid_end[i] = (Eint32) GridDimension[i]-1;
+      g_grid_start[i] = (Eint32) GridStartIndex[i];
+      g_grid_end[i] = (Eint32) GridEndIndex[i];
     }
+    // Newly refined grids can have unfilled ghost zones. They are not
+    // physical cooling cells; give unused output entries a safe long time.
+    for (i = 0; i < size; i++) cooling_time[i] = huge_number;
 
     /* Update units. */
 
@@ -289,7 +292,9 @@ int grid::ComputeCoolingTime(float *cooling_time, int CoolingTimeOnly, int Retur
     }
 
     /* set up the my_fields */
-    grackle_field_data my_fields;
+    grackle_field_data my_fields = {};
+    if (grackle_data->metal_cooling && MetalPointer == NULL)
+      ENZO_FAIL("Grackle metal_cooling requires a metal density field.");
 
     my_fields.grid_rank = (Eint32) GridRank;
     my_fields.grid_dimension = g_grid_dimension;

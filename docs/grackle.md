@@ -75,6 +75,11 @@ is unchanged.
 - Retain corrected zero-based interpolation indices, including the upper
   endpoint; reverting these would restore out-of-bounds accesses.
 - Stop if Grackle initialization fails.
+- Diagnostic cooling-time calls use active-cell bounds and initialize optional
+  field pointers. Unfilled AMR ghost zones previously generated NaN diagnostics
+  from zero density/energy; inactive output entries now receive a long cooling
+  time. The physical cooling prescription and active-cell rate equations are
+  unchanged.
 
 ## Validation
 
