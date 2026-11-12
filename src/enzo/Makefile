@@ -428,4 +428,5 @@ GrackleReadParameters.o: GrackleParameters.h
 
 ArtificialSupernovaEvents.o: ArtificialSupernovaTable.h ArtificialSupernovaEvents.h
 ReadParameterFile.o CheckForTimeAction.o: ArtificialSupernovaEvents.h
+Grid_StarParticleHandler.o EvolveHierarchy.o: ArtificialSupernovaEvents.h
 $(OBJS_LIB) enzo.o: StarParticleData.h

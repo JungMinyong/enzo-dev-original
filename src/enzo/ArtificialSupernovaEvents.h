@@ -4,4 +4,6 @@
 int InitializeArtificialSupernovaEvents(FLOAT time);
 void ArtificialSupernovaPosition(float position[3], FLOAT actual_time);
 void AdvanceArtificialSupernovaEvent(int action);
+void RecordArtificialSupernovaFirstStar(int type, FLOAT birth_time);
+void UpdateArtificialSupernovaCutoff(FLOAT time);
 #endif

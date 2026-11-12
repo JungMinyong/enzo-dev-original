@@ -57,6 +57,7 @@
 #include "ImplicitProblemABC.h"
 #endif
 #include "phys_constants.h"
+#include "ArtificialSupernovaEvents.h"
  
 // function prototypes
 //#ifdef INDIVIDUALSTAR
@@ -672,6 +673,7 @@ int EvolveHierarchy(HierarchyEntry &TopGrid, TopGridData &MetaData,
  
     /* Check for time-actions. */
  
+    UpdateArtificialSupernovaCutoff(MetaData.Time);
     CheckForTimeAction(LevelArray, MetaData);
 
     /* Compute COM of dark matter halo for isolated live DM simulations */

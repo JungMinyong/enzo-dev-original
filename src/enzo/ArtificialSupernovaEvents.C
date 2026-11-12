@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <limits.h>
+#include <limits>
+#include <algorithm>
 #ifdef USE_MPI
 #include "mpi.h"
 #endif
@@ -18,13 +20,43 @@ int GetUnits(float *, float *, float *, float *, float *, FLOAT);
 namespace {
 std::vector<artificial_sn::Event> events;
 std::vector<FLOAT> event_times;
+double pending_birth = (std::numeric_limits<double>::max)();
+double myr_in_code_units = 0;
+
+bool suppressed(int next)
+{
+  if (next >= event_times.size() ||
+      IndividualStarICSupernovaStopAfterFirstStarMyr < 0 ||
+      IndividualStarICSupernovaFirstStarTime < 0) return false;
+  const double cutoff = IndividualStarICSupernovaFirstStarTime +
+    IndividualStarICSupernovaStopAfterFirstStarMyr * myr_in_code_units;
+  // Equivalent Myr conversions can differ by a few ulps. Treat coincident
+  // events as excluded, independently of multiplication/division ordering.
+  const double roundoff = 8*std::numeric_limits<double>::epsilon() *
+    (std::max)(fabs(cutoff), fabs(static_cast<double>(event_times[next])));
+  return event_times[next] >= cutoff - roundoff;
+}
 }
 
 int InitializeArtificialSupernovaEvents(FLOAT time)
 {
   events.clear();
   event_times.clear();
-  if (IndividualStarICSupernovaEventFile == NULL) return SUCCESS;
+  pending_birth = (std::numeric_limits<double>::max)();
+  if (!std::isfinite(IndividualStarICSupernovaStopAfterFirstStarMyr) ||
+      (IndividualStarICSupernovaStopAfterFirstStarMyr < 0 &&
+       IndividualStarICSupernovaStopAfterFirstStarMyr != -1))
+    ENZO_FAIL("SN first-star delay must be -1 (disabled) or nonnegative Myr.");
+  if (IndividualStarICSupernovaEventFile == NULL) {
+    if (IndividualStarICSupernovaStopAfterFirstStarMyr >= 0)
+      ENZO_FAIL("SN first-star cutoff requires an artificial SN event file.");
+    return SUCCESS;
+  }
+  if (!std::isfinite(static_cast<double>(IndividualStarICSupernovaFirstStarTime)) ||
+      (IndividualStarICSupernovaFirstStarTime < 0 &&
+       IndividualStarICSupernovaFirstStarTime != -1) ||
+      IndividualStarICSupernovaFirstStarTime > time + PFLOAT_EPSILON*fabs(time))
+    ENZO_FAIL("Invalid saved artificial SN first-star birth time.");
   if (ComovingCoordinates || IndividualStarICSupernovaInjectionMethod != 1)
     ENZO_FAIL("SN event files require noncomoving coordinates and injection method 1.");
 
@@ -71,6 +103,11 @@ int InitializeArtificialSupernovaEvents(FLOAT time)
     ENZO_FAIL("Cannot get units for artificial SN event times.");
   if (!(time_units > 0))
     ENZO_FAIL("Artificial SN events require positive TimeUnits.");
+  myr_in_code_units = Myr_s / time_units;
+  if (IndividualStarICSupernovaFirstStarTime >= 0 &&
+      !std::isfinite(static_cast<double>(IndividualStarICSupernovaFirstStarTime +
+        IndividualStarICSupernovaStopAfterFirstStarMyr*myr_in_code_units)))
+    ENZO_FAIL("Artificial SN cutoff cannot be represented in code units.");
   for (int n = 0; n < count; ++n) {
     events[n].time_myr = packed[4*n];
     for (int d = 0; d < 3; ++d) {
@@ -90,7 +127,7 @@ int InitializeArtificialSupernovaEvents(FLOAT time)
   FLOAT time_roundoff = PFLOAT_EPSILON * fabs(time);
   if (next < 0 || next > count ||
       (next > 0 && event_times[next-1] - time > time_roundoff) ||
-      (next < count && event_times[next] <= time))
+      (next < count && event_times[next] <= time && !suppressed(next)))
     ENZO_FAIL("SN event cursor is inconsistent with InitialTime; next event must be in the future.");
 
   int action = -1;
@@ -104,7 +141,7 @@ int InitializeArtificialSupernovaEvents(FLOAT time)
       if (TimeActionType[i] <= 0) { action = i; break; }
   if (action < 0) ENZO_FAIL("No free time-action slot for artificial SN events.");
   TimeActionType[action] = 3;
-  TimeActionTime[action] = next < count ? event_times[next] : -1;
+  TimeActionTime[action] = next < count && !suppressed(next) ? event_times[next] : -1;
   TimeActionParameter[action] = 0;
   TimeActionRedshift[action] = -1;
   if (MyProcessorNumber == ROOT_PROCESSOR)
@@ -133,5 +170,49 @@ void AdvanceArtificialSupernovaEvent(int action)
 {
   ++IndividualStarICSupernovaNextEvent;
   int next = IndividualStarICSupernovaNextEvent;
-  TimeActionTime[action] = next < events.size() ? event_times[next] : -1;
+  TimeActionTime[action] = next < events.size() && !suppressed(next) ? event_times[next] : -1;
+}
+
+void RecordArtificialSupernovaFirstStar(int type, FLOAT birth_time)
+{
+  if (!IndividualStarICSupernovaEventFile ||
+      IndividualStarICSupernovaStopAfterFirstStarMyr < 0 ||
+      IndividualStarICSupernovaFirstStarTime >= 0) return;
+  type = abs(type);
+  if (type < PARTICLE_TYPE_INDIVIDUAL_STAR ||
+      type > PARTICLE_TYPE_INDIVIDUAL_STAR_UNRESOLVED) return;
+  if (!std::isfinite(static_cast<double>(birth_time)) || birth_time < 0)
+    ENZO_FAIL("Invalid newly formed star birth time.");
+  pending_birth = (std::min)(pending_birth, static_cast<double>(birth_time));
+}
+
+void UpdateArtificialSupernovaCutoff(FLOAT time)
+{
+  if (!IndividualStarICSupernovaEventFile ||
+      IndividualStarICSupernovaStopAfterFirstStarMyr < 0) return;
+  if (IndividualStarICSupernovaFirstStarTime < 0) {
+    double first = pending_birth;
+#ifdef USE_MPI
+    MPI_Allreduce(&pending_birth, &first, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
+#endif
+    if (first == (std::numeric_limits<double>::max)()) return;
+    if (first > time + PFLOAT_EPSILON*fabs(time))
+      ENZO_FAIL("Artificial SN first birth lies in the future.");
+    IndividualStarICSupernovaFirstStarTime = first;
+    const double cutoff = first +
+      IndividualStarICSupernovaStopAfterFirstStarMyr*myr_in_code_units;
+    if (!std::isfinite(cutoff))
+      ENZO_FAIL("Artificial SN cutoff cannot be represented in code units.");
+    if (MyProcessorNumber == ROOT_PROCESSOR) {
+      int permitted = IndividualStarICSupernovaNextEvent;
+      while (permitted < event_times.size() && !suppressed(permitted)) ++permitted;
+      printf("ArtificialSN: first_star_Myr=%.17g cutoff_Myr=%.17g "
+             "permitted_events=%d suppressed_candidates=%d\n",
+             first/myr_in_code_units, cutoff/myr_in_code_units,
+             permitted, static_cast<int>(events.size())-permitted);
+    }
+  }
+  if (suppressed(IndividualStarICSupernovaNextEvent))
+    for (int i = 0; i < MAX_TIME_ACTIONS; ++i)
+      if (TimeActionType[i] == 3) TimeActionTime[i] = -1;
 }

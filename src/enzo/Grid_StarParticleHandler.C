@@ -31,6 +31,7 @@
 #include "CosmologyParameters.h"
 
 #include "phys_constants.h"
+#include "ArtificialSupernovaEvents.h"
 
 /* function prototypes */
  
@@ -1523,6 +1524,9 @@ int grid::StarParticleHandler(HierarchyEntry* SubgridPointer, int level,
 
       for (i = 0; i < NumberOfNewParticles; i++)
  	tg->ParticleNumber[i] = INT_UNDEFINED;
+      for (i = 0; i < NumberOfNewParticles; i++)
+        RecordArtificialSupernovaFirstStar(tg->ParticleType[i],
+                                          tg->ParticleAttribute[0][i]);
 
       /* Move Particles into this grid (set cell size) using the fake grid. */
 

@@ -154,6 +154,8 @@ SPEXTERN int   IndividualStarICSupernovaFromFile;
 SPEXTERN char *IndividualStarICSupernovaEventFile;
 SPEXTERN int   IndividualStarICSupernovaNextEvent;
 SPEXTERN char  IndividualStarICSupernovaEventFingerprint[17];
+SPEXTERN double IndividualStarICSupernovaStopAfterFirstStarMyr;
+SPEXTERN FLOAT IndividualStarICSupernovaFirstStarTime;
 SPEXTERN float IndividualStarWDFixedLifetime;
 SPEXTERN float IndividualStarRefineTime;
 SPEXTERN int   ICSupernovaNumberOfPoints;

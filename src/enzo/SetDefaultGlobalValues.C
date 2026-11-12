@@ -806,6 +806,8 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   IndividualStarICSupernovaEventFile = NULL;
   IndividualStarICSupernovaNextEvent = 0;
   IndividualStarICSupernovaEventFingerprint[0] = '\0';
+  IndividualStarICSupernovaStopAfterFirstStarMyr = -1.0;
+  IndividualStarICSupernovaFirstStarTime = -1.0;
   IndividualStarICSupernovaInjectionMethod = 1;   // 1 = thermal only, spherical ball - 2: thermal and kinetic mix - Simpson et. al. 2015
   for (i = 0; i < 3; i ++)
       IndividualStarICSupernovaPos[i] = 0.5;

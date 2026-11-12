@@ -1176,6 +1176,10 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
       IndividualStarICSupernovaEventFile = dummy;
     ret += sscanf(line, "IndividualStarICSupernovaNextEvent = %"ISYM,
                   &IndividualStarICSupernovaNextEvent);
+    ret += sscanf(line, "IndividualStarICSupernovaStopAfterFirstStarMyr = %lf",
+                  &IndividualStarICSupernovaStopAfterFirstStarMyr);
+    ret += sscanf(line, "IndividualStarICSupernovaFirstStarTime = %"PSYM,
+                  &IndividualStarICSupernovaFirstStarTime);
     ret += sscanf(line, "IndividualStarICSupernovaEventFingerprint = %16s",
                   IndividualStarICSupernovaEventFingerprint);
     ret += sscanf(line, "IndividualStarICSupernovaPos = %"FSYM" %"FSYM" %"FSYM,

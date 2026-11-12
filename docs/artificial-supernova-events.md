@@ -13,6 +13,36 @@ parameter retains the existing rate-based, random-position driving.
 `IndividualStarICSupernovaFromFile` is the older **rate-table** option; it is
 not the new event-list option.
 
+## Stop after the first stellar birth
+
+To stop artificial driving 25 physical Myr after the first stellar birth:
+
+```ini
+IndividualStarICSupernovaStopAfterFirstStarMyr = 25
+```
+
+The default is -1 (disabled); zero stops at the first birth. This option
+requires an event file. The earliest birth among newly created Aeos particle
+types 11–15, including unresolved stellar populations, starts the clock.
+Dark matter and other particle types do not. Births are collected locally
+and reduced across MPI ranks once per root timestep before time actions.
+Only candidate events strictly before first birth plus the requested delay
+are injected. Events exactly at the cutoff are excluded. Without any stellar
+birth, the full candidate schedule remains available.
+
+`IndividualStarICSupernovaFirstStarTime` is checkpoint state in code units,
+initially -1. It is written automatically; do not set it in a fresh input.
+The saved birth time, event cursor, and fingerprint preserve shutdown across
+restarts, including when suppressed candidates lie before the restart time.
+This feature tracks births from its first enabled fresh startup; it does not
+recover historical births from an older checkpoint lacking that state.
+Ordinary stellar feedback is unaffected. No shutdown restart is necessary.
+
+The shared `sn-events-fiducial-seed42-150Myr.txt` contains 60 candidates at
+2.5 Myr intervals through 150 Myr. Its first 43 rows reproduce the original
+truncated schedule. Use the extended file from the beginning of a fresh run;
+replacing an event file in an existing realization invalidates its fingerprint.
+
 ## File format
 
 One event per line, with four whitespace-separated numbers:
@@ -107,6 +137,23 @@ They do not guarantee bitwise identical fluid evolution across MPI layouts,
 compiler options, or different chemistry/physics models.
 
 ## Tests
+
+The first-star cutoff regression compiles the production event implementation
+with controlled units and globals:
+
+```bash
+g++ -std=c++11 -Wno-literal-suffix \
+  -DCONFIG_PFLOAT_8 -DCONFIG_PINT_8 -DCONFIG_BFLOAT_8 -DSMALL_INTS \
+  -D__max_baryons=60 -D__max_subgrids=100000 \
+  -D__max_particle_attr=20 -D__max_cpu_per_node=64 \
+  tests/artificial_supernova_events/cutoff.cpp -o /tmp/sn-cutoff-test
+/tmp/sn-cutoff-test /path/to/sn-events-fiducial-seed42-150Myr.txt
+```
+
+This checks stellar-type filtering, exact and between-event cutoff boundaries,
+disabled and exhausted schedules, invalid saved state, and restart equivalence.
+An MPI build of the same fixture also exercises earliest-birth reduction across
+ranks; the serial command above does not test that collective.
 
 Parser and generator tests:
 

@@ -1147,6 +1147,11 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   if (IndividualStarICSupernovaEventFile) {
     fprintf(fptr, "IndividualStarICSupernovaEventFile = %s\n", IndividualStarICSupernovaEventFile);
     fprintf(fptr, "IndividualStarICSupernovaNextEvent = %"ISYM"\n", IndividualStarICSupernovaNextEvent);
+    fprintf(fptr, "IndividualStarICSupernovaStopAfterFirstStarMyr = %.17g\n",
+            IndividualStarICSupernovaStopAfterFirstStarMyr);
+    // Preserve the cutoff's side of an exactly coincident event on restart.
+    fprintf(fptr, "IndividualStarICSupernovaFirstStarTime = %.21Lg\n",
+            static_cast<long double>(IndividualStarICSupernovaFirstStarTime));
     fprintf(fptr, "IndividualStarICSupernovaEventFingerprint = %s\n",
             IndividualStarICSupernovaEventFingerprint);
   }
