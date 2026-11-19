@@ -282,6 +282,11 @@ int RadiativeTransferReadParameters(FILE *fptr)
   }
 
 #ifdef USE_GRACKLE
+  // This flag is only initialized in this reader, after GrackleReadParameters.
+  if (grackle_data->use_grackle && grackle_data->use_isrf_field &&
+      !RadiativeTransferOpticallyThinFUV)
+    ENZO_FAIL("AEOS Grackle ISRF requires RadiativeTransferOpticallyThinFUV=1; ray-traced FUV coupling is not implemented.");
+
   // Set some radiative transfer grackle parameters.
   if (grackle_data->use_grackle == TRUE) {
     grackle_data->radiative_transfer_coupled_rate_solver = (Eint32) RadiativeTransferCoupledRateSolver;

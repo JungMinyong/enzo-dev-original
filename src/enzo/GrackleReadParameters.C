@@ -24,6 +24,7 @@
 #include "global_data.h"
 #include "CosmologyParameters.h"
 #include "GrackleParameters.h"
+#include "StarParticleData.h"
 
 
 int GetUnits(float *DensityUnits, float *LengthUnits,
@@ -213,11 +214,23 @@ int GrackleReadParameters(FILE *fptr, FLOAT InitTime)
   // grackle_data->radiative_transfer_hydrogen_only set in RadiativeTransferReadParameters
 
 
-  // Error checking for behavior not implemented
-  if ( (grackle_data->photoelectric_heating == 2) ||
-       (grackle_data->use_isrf_field)){
-    ENZO_FAIL("Photoelectric heating model 2, and ISRF field, in Grackle is not yet implemented.\n");
+  // AEOS owns PE heating; Grackle consumes the same effective FUV field.
+  // Override old/restart use_isrf_field=0 explicitly, without a new parameter.
+  if (IndividualStarFUVHeating && grackle_data->use_grackle) {
+    if (!RadiativeTransfer || MultiSpecies < 1)
+      ENZO_FAIL("AEOS Grackle ISRF requires RadiativeTransfer=1 and MultiSpecies>=1.");
+    if (grackle_data->photoelectric_heating != 0)
+      ENZO_FAIL("AEOS external PE requires PhotoelectricHeating=0 to avoid double counting.");
+    if (!grackle_data->use_volumetric_heating_rate)
+      ENZO_FAIL("AEOS external PE requires use_volumetric_heating_rate=1.");
+    grackle_data->use_isrf_field = 1;
+    if (MyProcessorNumber == ROOT_PROCESSOR)
+      fprintf(stdout, "AEOS Grackle ISRF: local background+stellar FUV, Habing=1.59e-3 erg/cm2/s, PE-model attenuation once; use_isrf_field=1\n");
+  } else if (grackle_data->use_isrf_field) {
+    ENZO_FAIL("use_isrf_field requires AEOS IndividualStarFUVHeating.");
   }
+  if (grackle_data->photoelectric_heating == 2)
+    ENZO_FAIL("Grackle photoelectric heating model 2 is not implemented in Enzo.");
 
   if ( grackle_data->use_dust_density_field ){
     ENZO_FAIL("Supplying dust density (use_dust_density_field) to Grackle is not yet implemented.\n");

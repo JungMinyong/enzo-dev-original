@@ -26,6 +26,7 @@
 #include "fortran.def"
 #include "CosmologyParameters.h"
 #include "phys_constants.h"
+#include "PhotoelectricRadiationField.h"
  
 /* This parameter controls whether the cooling function recomputes
    the metal cooling rates.  It is reset by RadiationFieldUpdate. */
@@ -328,6 +329,22 @@ int grid::ComputeCoolingTime(float *cooling_time, int CoolingTimeOnly, int Retur
 
     my_fields.metal_density   = MetalPointer;
 
+    // Couple grain charging and dust temperature to AEOS's local PE radiation.
+    float *isrf = NULL;
+    if (grackle_data->use_isrf_field) {
+      const int FUVNum = FindField(FUVRate, FieldType, NumberOfBaryonFields);
+      const int MetalNum = FindField(Metallicity, FieldType, NumberOfBaryonFields);
+      if (FUVNum < 0 || MetalNum < 0)
+        ENZO_FAIL("AEOS Grackle ISRF requires FUVRate and Metallicity fields");
+      isrf = new float[size];
+      FillPhotoelectricGrackleISRF(size, isrf, BaryonField[FUVNum], density,
+        BaryonField[MetalNum], BaryonField[HINum], BaryonField[HIINum],
+        BaryonField[HMNum], BaryonField[H2INum], BaryonField[H2IINum],
+        MultiSpecies, PhotoelectricHeatingDustModel, DensityUnits, VelocityUnits,
+        LengthUnits, TimeUnits, CellWidth[0][0], mh);
+    }
+    my_fields.isrf_habing = isrf;
+
     my_fields.volumetric_heating_rate  = volumetric_heating_rate;
     my_fields.specific_heating_rate    = specific_heating_rate;
 
@@ -381,6 +398,7 @@ int grid::ComputeCoolingTime(float *cooling_time, int CoolingTimeOnly, int Retur
       delete [] volumetric_heating_rate;
     }
 
+    delete [] isrf;
     delete [] TotalMetals;
     delete [] g_grid_dimension;
     delete [] g_grid_start;

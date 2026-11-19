@@ -31,6 +31,7 @@
 #include "LevelHierarchy.h"
 #include "CosmologyParameters.h"
 #include "phys_constants.h"
+#include "PhotoelectricRadiationField.h"
 
 int GetUnits(float *DensityUnits, float *LengthUnits,
              float *TemperatureUnits, float *TimeUnits,
@@ -103,7 +104,7 @@ float ComputeHeatingRateFromDustModel(const float &n_H, const float &n_e,
    * ----------------------------------------------------------------------------------
    */
 
-  const double G_norm = 1.59E-3; // Habing field normalization - MW flux in cgs
+  const double G_norm = AEOSHabingFlux; // Habing field normalization - MW flux in cgs
                                  // This is 5.29E-14 erg cm^(-3) times the speed of light
                                  // to convert from energy density to flux density
   const double Z_o    =    0.02; // solar metallicity as defined in Forbes et. al. 2016
@@ -147,7 +148,7 @@ float ComputeHeatingRateFromDustModel(const float &n_H, const float &n_e,
     // following Hu et. al. 2016, and Bergin et. al. 2004
     float D = NormalizedDustToGasRatio(Z);
 
-    float attenuation = exp( -1.33E-21 * D * max(dx,0.0) * n_H); // dx and n_H in cgs
+    float attenuation = PhotoelectricDustAttenuation(PhotoelectricHeatingDustModel, Z, n_H, dx); // dx and n_H in cgs
 
     flux = 1.3E-24 * n_H * epsilon * G_o * D * attenuation;
 
