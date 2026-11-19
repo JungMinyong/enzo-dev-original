@@ -205,17 +205,19 @@ int grid::AddPeHeatingFromSources(Star *AllStars)
 
           float n_H, n_e, Z;
 
+          // Species fields contain mass density: count H nuclei, not H2 molecules.
           n_H = (this->BaryonField[HINum][index] + this->BaryonField[HIINum][index]);
 
           if ( MultiSpecies > 1){ /* include H2 */
              n_H += this->BaryonField[HMNum][index] +
-                      0.5 * (this->BaryonField[H2INum][index] + this->BaryonField[H2IINum][index]);
+                      (this->BaryonField[H2INum][index] + this->BaryonField[H2IINum][index]);
           }
 
 
           n_H *= DensityUnits / mh;
 
-          n_e  = this->BaryonField[DeNum][index] * DensityUnits / me;
+          // ElectronDensity stores n_e * m_H in code density units.
+          n_e  = this->BaryonField[DeNum][index] * DensityUnits / mh;
 
           Z    = this->BaryonField[MetalNum][index] / this->BaryonField[DensNum][index]; // metal dens / dens
 

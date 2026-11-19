@@ -137,13 +137,15 @@ int grid::FinalizeRadiationFields(void)
 
            float n_H, n_e, Z;
 
+           // Species fields contain mass density: count H nuclei, not H2 molecules.
            n_H = BaryonField[HINum][index]+BaryonField[HIINum][index];
            if(MultiSpecies>1){
 	     n_H += BaryonField[HMNum][index]+
-	            0.5*(BaryonField[H2INum][index]+BaryonField[H2IINum][index]);
+	            (BaryonField[H2INum][index]+BaryonField[H2IINum][index]);
            }
            n_H *= DensityConversion;
-           n_e  = BaryonField[DeNum][index]*DensityUnits/me;
+           // ElectronDensity stores n_e * m_H in code density units.
+           n_e  = BaryonField[DeNum][index]*DensityUnits/mh;
            Z    = BaryonField[MetalNum][index]/BaryonField[DensNum][index];
 
 //         This is now done in initialization of RT fields
